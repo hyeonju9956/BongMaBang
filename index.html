@@ -3,316 +3,384 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>봉현마을방범대 세이브 파일</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚩</text></svg>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.39.3/dist/galmuri.css">
+<title>봉현마을방범대 기억 퍼즐</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#2B1D12; --paper:#FFF6DC; --paper2:#F1DFAE;
-  --sky:#8FD3F4; --sky2:#C4EBFB; --sun:#FFD43B; --red:#E5483B;
-  --grass:#62B94A; --grass2:#4A9A36; --dirt:#D39A5B; --dirt2:#B97D40;
-  --cloud:#FFFFFF;
+  --paper:#F7F1E3; --paper2:#EFE6D2; --ink:#3B332C; --ink-soft:#8A7F73;
+  --c0:#E8574A; --c1:#F2913A; --c2:#E9B92E; --c3:#7BB661; --c4:#5FA3D9; --c5:#9C7BC9; --c6:#EE82A8;
+  --mark:rgba(242,197,61,.55);
 }
 @media (prefers-color-scheme: dark){
-  :root{ --sky:#26305C; --sky2:#34407C; --grass:#3E8A33; --grass2:#2F6E27; --dirt:#9C6E3E; --dirt2:#83592F; --cloud:#56629A; }
+  :root:not([data-theme="light"]){ --paper:#27221E; --paper2:#322B26; --ink:#EFE6D6; --ink-soft:#A89C8E; --mark:rgba(233,185,46,.4); }
 }
+:root[data-theme="dark"]{ --paper:#27221E; --paper2:#322B26; --ink:#EFE6D6; --ink-soft:#A89C8E; --mark:rgba(233,185,46,.4); }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{
-  background:linear-gradient(var(--sky2),var(--sky) 60%);
+  background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   color:var(--ink);
-  font-family:"Galmuri11","Galmuri9","DungGeunMo","NeoDunggeunmo",ui-monospace,monospace;
-  font-size:14px; line-height:1.6;
-  -webkit-font-smoothing:none; font-smooth:never;
-  display:flex; flex-direction:column; gap:20px;
-  padding:20px 16px;
-  min-height:100%;
+  font-family:"Gaegu","Nanum Pen Script","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:19px; line-height:1.5;
+  min-height:100vh;
 }
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-:focus-visible{outline:3px dashed var(--red);outline-offset:4px}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px dashed var(--c4);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:36px 20px 60px}
 
-/* 픽셀 테두리: 둥근 모서리 대신 계단식 모서리 */
-.px{
-  background:var(--paper);
-  box-shadow:
-    0 -4px 0 0 var(--ink), 0 4px 0 0 var(--ink),
-    -4px 0 0 0 var(--ink), 4px 0 0 0 var(--ink),
-    inset 0 -4px 0 0 var(--paper2);
+/* ---- 제목: 낱말 퍼즐처럼 한 글자씩 다른 색 ---- */
+.head{display:grid;grid-template-columns:1fr minmax(260px,360px);gap:16px 40px;align-items:end}
+h1{font-weight:700;font-size:clamp(40px,7vw,68px);line-height:1;letter-spacing:2px}
+h1 span{display:inline-block}
+.sub{font-size:20px;color:var(--ink-soft);margin-top:10px}
+.sub b{color:var(--ink);font-weight:700}
+
+/* ---- 검색 ---- */
+.search{position:relative}
+.search label{display:block;font-size:17px;margin-bottom:4px}
+.search input{
+  width:100%;padding:8px 44px 8px 14px;font-size:20px;
+  background:transparent;border:2px solid var(--ink);border-radius:18px 6px 16px 8px/8px 16px 6px 18px;
+  outline:none;
 }
+.search input:focus{border-color:var(--c4)}
+.search input::-webkit-search-cancel-button{display:none}
+.search .x{position:absolute;right:10px;bottom:6px;font-size:24px;line-height:1;padding:4px;color:var(--ink-soft)}
+.search .x[hidden]{display:none}
 
-/* ---------- 세이브 슬롯 ---------- */
-.slot{flex:none;max-width:960px;width:100%;margin:4px auto 0;padding:16px 20px 18px;display:grid;grid-template-columns:auto 1fr;gap:6px 20px;align-items:center}
-.slot-badge{grid-row:span 2;width:72px;height:72px;background:var(--sun);box-shadow:0 0 0 4px var(--ink);display:grid;place-items:center}
-.slot h1{font-family:"Galmuri14","Galmuri11",monospace;font-size:26px;line-height:1.2;letter-spacing:-.5px}
-.slot h1 small{font-size:13px;margin-left:10px;color:var(--red)}
-.stats{display:flex;flex-wrap:wrap;gap:4px 22px;font-size:13px}
-.stats b{color:var(--red);font-weight:400}
-.members{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-.chip{display:flex;align-items:center;gap:6px;padding:3px 10px 3px 6px;background:var(--paper);box-shadow:0 0 0 2px var(--ink)}
-.chip i{width:12px;height:12px;display:block;box-shadow:0 0 0 2px var(--ink)}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.chip-all{font-size:12px;opacity:.7}
+/* ---- 연도 실 ---- */
+.years{margin:34px -20px 8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+.years svg{display:block;margin:0 auto}
+.yp{cursor:pointer}
+.yp text{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round;font-family:inherit;font-weight:700;fill:var(--ink);pointer-events:none}
+.yp .cnt{font-weight:400;fill:var(--ink-soft)}
+.yp:focus{outline:none}
+.yp:focus-visible .edge{stroke-dasharray:6 4}
+.yp.dim{opacity:.25}
 
-/* ---------- 연도 점프 ---------- */
-.years{flex:none;max-width:960px;width:100%;margin:0 auto;display:flex;gap:6px;overflow-x:auto;padding:4px 4px 8px}
-.years button{flex:none;padding:2px 10px;background:var(--paper);box-shadow:0 0 0 2px var(--ink);font-size:13px}
-.years button[aria-current="true"]{background:var(--sun)}
+/* ---- 한 해 = 12조각 퍼즐 ---- */
+.year-view{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px 44px;margin-top:18px;align-items:start}
+.board h2,.notes h2{font-weight:700;font-size:30px;line-height:1.2;margin-bottom:8px}
+.board .hint{font-size:17px;color:var(--ink-soft);margin-bottom:6px}
+#puzzle{width:100%;height:auto;display:block;overflow:visible}
+.mp{cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.mp text{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round;font-family:inherit;pointer-events:none;fill:var(--ink)}
+.mp .m{font-weight:700;font-size:26px}
+.mp .n{font-size:17px;fill:var(--ink-soft)}
+.mp.empty .edge{stroke:var(--ink-soft);stroke-dasharray:5 5;stroke-width:1.6}
+.mp.empty text{fill:var(--ink-soft)}
+.mp.on{transform:translate(0,-10px)}
+.mp.dim{opacity:.22}
+.mp:focus{outline:none}
+.mp:focus-visible .edge{stroke-width:4}
+.someday{margin-top:10px;font-size:18px;padding:4px 12px;border:2px solid var(--ink);border-radius:14px 5px 12px 6px}
+.someday[aria-pressed="true"]{background:var(--c2);color:#3B332C}
+.someday[hidden]{display:none}
 
-/* ---------- 마을 길 (가로 타임라인) ---------- */
-.world{
-  flex:1; min-height:340px; position:relative;
-  overflow-x:auto; overflow-y:hidden;
-  margin:0 -16px;
-  scrollbar-color:var(--ink) transparent;
+/* ---- 기억 쪽지 ---- */
+.notes{min-height:200px}
+.notes .meta{font-size:17px;color:var(--ink-soft);margin-bottom:14px}
+.note{position:relative;padding:14px 18px 14px 22px;margin-bottom:16px;background:var(--paper2);
+  border-radius:4px 14px 6px 12px/12px 5px 14px 4px;cursor:default}
+.note::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:5px;border-radius:4px;background:var(--c)}
+.note.jump{cursor:pointer}
+.note .d{font-size:16px;color:var(--c);font-weight:700}
+.note h3{font-weight:700;font-size:24px;line-height:1.25;margin:2px 0 4px}
+.note p{font-size:19px;line-height:1.55;max-width:38em}
+.note .who{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:8px;font-size:16px}
+.note .who button{color:var(--ink-soft);border-bottom:1.5px dashed currentColor;line-height:1.2}
+.note .who button:hover{color:var(--ink)}
+mark{background:linear-gradient(transparent 35%,var(--mark) 35% 90%,transparent 90%);color:inherit}
+.empty-note{font-size:19px;color:var(--ink-soft);padding:18px 0;max-width:30em}
+.empty-note code{font-family:inherit;color:var(--ink);background:var(--paper2);padding:0 6px;border-radius:4px}
+
+@media (max-width:760px){
+  .head{grid-template-columns:1fr}
+  .year-view{grid-template-columns:1fr}
 }
-.track{position:relative;height:100%;min-height:340px}
-.ground{position:absolute;left:0;right:0;bottom:0;height:96px;
-  background:
-    linear-gradient(var(--grass) 0 16px, var(--grass2) 16px 20px, transparent 20px),
-    repeating-linear-gradient(90deg,var(--dirt) 0 24px,var(--dirt2) 24px 28px);
-}
-.ground::after{content:"";position:absolute;left:0;right:0;top:54px;height:4px;
-  background:repeating-linear-gradient(90deg,var(--paper) 0 16px,transparent 16px 32px);opacity:.7}
-.cloud{position:absolute;width:64px;height:16px;background:var(--cloud);
-  box-shadow:16px -12px 0 0 var(--cloud),32px -12px 0 0 var(--cloud),16px -24px 0 -4px var(--cloud),48px 0 0 0 var(--cloud)}
-
-.sign{position:absolute;bottom:92px;width:96px;display:flex;flex-direction:column;align-items:center}
-.sign-board{background:#A8672F;color:#FFF3C8;font-family:"Galmuri14","Galmuri11",monospace;font-size:20px;padding:4px 10px;box-shadow:0 0 0 4px var(--ink)}
-.sign-post{width:8px;height:40px;background:#7A4A20;box-shadow:0 0 0 2px var(--ink)}
-
-.node{position:absolute;bottom:92px;width:132px;display:flex;flex-direction:column;align-items:center;transition:opacity .2s}
-.node.dim{opacity:.25}
-.card{width:128px;text-align:left;padding:8px 10px 10px;margin-bottom:14px;transition:transform .15s steps(2)}
-.card .m{font-family:"Galmuri14","Galmuri11",monospace;font-size:18px;line-height:1.2;color:var(--red)}
-.card .t{font-size:13px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px}
-.card .dots{display:flex;gap:3px;margin-top:6px}
-.card .dots i{width:8px;height:8px;display:block;box-shadow:0 0 0 1px var(--ink)}
-.card:hover{transform:translateY(-4px)}
-.node.on .card{background:var(--sun);transform:translateY(-8px)}
-.pole{width:4px;height:44px;background:var(--ink);position:relative}
-.pole::before{content:"";position:absolute;left:4px;top:0;width:18px;height:12px;background:var(--paper);box-shadow:0 0 0 2px var(--ink)}
-.node.on .pole::before{background:var(--red)}
-
-.hero{position:absolute;bottom:34px;width:40px;height:56px;transition:left .7s steps(10);z-index:2;pointer-events:none}
-.hero .flip{position:relative;width:40px;height:56px}
-.hero.left .flip{transform:scaleX(-1)}
-.hero svg{position:absolute;inset:0}
-.hero .f2{opacity:0}
-.hero.walk .f1{animation:fa .24s steps(1) infinite}
-.hero.walk .f2{animation:fb .24s steps(1) infinite}
-@keyframes fa{0%{opacity:1}50%{opacity:0}}
-@keyframes fb{0%{opacity:0}50%{opacity:1}}
-
-/* ---------- 대화창 ---------- */
-.dialog{flex:none;max-width:960px;width:100%;margin:0 auto 6px;padding:22px 22px 16px;position:relative;min-height:170px;cursor:pointer}
-.nameplate{position:absolute;top:-18px;left:18px;background:var(--red);color:#fff;padding:2px 12px;box-shadow:0 0 0 4px var(--ink);font-size:13px}
-.dialog h2{font-family:"Galmuri14","Galmuri11",monospace;font-size:20px;font-weight:400;line-height:1.3;margin-bottom:4px}
-.who{font-size:12px;opacity:.75;margin-bottom:8px}
-.text{font-size:15px;line-height:1.75;max-width:62ch;min-height:3.5em;white-space:pre-wrap}
-.caret{display:inline-block;margin-left:4px;color:var(--red);visibility:hidden}
-.caret.show{visibility:visible;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.nav{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font-size:13px}
-.nav button{padding:4px 10px;box-shadow:0 0 0 2px var(--ink);background:var(--paper)}
-.nav button:disabled{opacity:.35;cursor:default}
-.hint{font-size:11px;opacity:.6;text-align:center;max-width:960px;margin:0 auto}
-
-@media (max-width:560px){
-  .slot{grid-template-columns:1fr}
-  .slot-badge{display:none}
-  .slot h1{font-size:22px}
-  .slot h1 small{display:block;margin:4px 0 0}
-}
-@media (prefers-reduced-motion:reduce){
-  .hero{transition:none}
-  .hero.walk .f1,.hero.walk .f2,.caret.show{animation:none}
-  .card{transition:none}
-}
+@media (prefers-reduced-motion:reduce){ .mp{transition:none} }
 </style>
 </head>
 <body>
 
-<header class="slot px">
-  <div class="slot-badge" id="badge" aria-hidden="true"></div>
-  <h1><span id="squadName"></span><small>SLOT 1</small></h1>
-  <div class="stats" id="stats"></div>
-  <div class="members" id="members" role="group" aria-label="대원별로 보기"></div>
-</header>
+<!-- 색연필 질감 필터 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="w"/>
+    <feDisplacementMap in="SourceGraphic" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.9 0.35" numOctaves="2" seed="9" result="g"/>
+    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.55" result="ga"/>
+    <feComposite in="d" in2="ga" operator="in"/>
+  </filter>
+</svg>
 
-<nav class="years" id="years" aria-label="연도로 이동"></nav>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <h1 id="title" aria-label=""></h1>
+      <p class="sub" id="sub"></p>
+    </div>
+    <div class="search">
+      <label for="q">누구랑 있었던 일이더라?</label>
+      <input id="q" type="search" placeholder="친구 이름이나 키워드" autocomplete="off">
+      <button class="x" id="clear" type="button" aria-label="검색어 지우기" hidden>×</button>
+    </div>
+  </header>
 
-<main class="world" id="world" aria-label="에피소드 타임라인">
-  <div class="track" id="track">
-    <div class="ground"></div>
-    <div class="hero" id="hero"><div class="flip" id="heroFlip"></div></div>
-  </div>
-</main>
+  <nav class="years" id="years" aria-label="연도 고르기"></nav>
 
-<section class="dialog px" id="dialog" aria-live="polite">
-  <div class="nameplate" id="dlgDate">NEW GAME</div>
-  <h2 id="dlgTitle"></h2>
-  <p class="who" id="dlgWho"></p>
-  <p class="text"><span id="dlgText"></span><span class="caret" id="caret">▼</span></p>
-  <div class="nav">
-    <button id="prev" type="button">◀ 이전</button>
-    <span id="pos"></span>
-    <button id="next" type="button">다음 ▶</button>
-  </div>
-</section>
-<p class="hint">← → 키로 이동 · 대화창을 누르면 글이 바로 다 나와요</p>
+  <section class="year-view">
+    <div class="board">
+      <h2 id="yearTitle"></h2>
+      <p class="hint" id="yearHint"></p>
+      <svg id="puzzle" viewBox="-34 -34 468 368" role="group" aria-label="월별 조각"></svg>
+      <button class="someday" id="someday" type="button" aria-pressed="false" hidden></button>
+    </div>
+    <div class="notes" id="notes" aria-live="polite"></div>
+  </section>
+</div>
 
 <script src="episodes.js"></script>
 <script>
 (function(){
-  const SQUAD = window.SQUAD || { name:"우리 방범대", members:[] };
-  const colorOf = {};
-  (SQUAD.members||[]).forEach(m => colorOf[m.name] = m.color || "#999");
-
-  const norm = d => { const p = String(d||"").split("-");
-    return [(p[0]||"0000"),(p[1]||"00").padStart(2,"0"),(p[2]||"00").padStart(2,"0")].join("-"); };
-  const EP = (window.EPISODES||[])
-    .map((e,i)=>({...e, who:e.who||[], _i:i, _k:norm(e.date)}))
-    .sort((a,b)=>a._k.localeCompare(b._k) || a._i-b._i);
-
-  const fmt = e => { const [y,m,d]=e._k.split("-"); let s=y+"년";
-    if(m!=="00") s+=" "+(+m)+"월"; if(d!=="00") s+=" "+(+d)+"일"; return s; };
+  const SQUAD = Object.assign({name:"우리 방범대", startYear:2017, endYear:new Date().getFullYear()}, window.SQUAD||{});
+  const Y0 = +SQUAD.startYear, Y1 = +SQUAD.endYear;
+  const COLORS = ["--c0","--c1","--c2","--c3","--c4","--c5","--c6"].map(v=>`var(${v})`);
+  const col = i => COLORS[((i%7)+7)%7];
 
   const $ = id => document.getElementById(id);
   const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const NS = "http://www.w3.org/2000/svg";
 
-  /* ---- 픽셀 스프라이트 (방범대 모자 + 완장) ---- */
-  const PAL={Y:"#FFD43B",K:"#2B1D12",S:"#F6C79E",R:"#E5483B",W:"#FFFFFF",B:"#3A6FD8"};
-  const top=["..KKKKK...",".KYYYYYK..",".KYYRYYKK.","KKKKKKKKKK","..SSSSS...","..SKSSK...","..SSSSS...","...SSS....",".RRWWRRR..","SRRWWRRRS.","S.RRRRR.S."];
-  const A=top.concat(["..BBBBB...","..BB.BB...","..SS.SS...",".KK..KK..."]);
-  const Bf=top.concat(["..BBBBB...",".BB...BB..","SS.....SS.","KK......KK"]);
-  const svg=(rows,cls)=>{let r="";rows.forEach((row,y)=>[...row].forEach((c,x)=>{if(PAL[c])r+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${PAL[c]}"/>`}));
-    return `<svg class="${cls}" viewBox="0 0 10 ${rows.length}" width="40" height="${rows.length*4}" shape-rendering="crispEdges" aria-hidden="true">${r}</svg>`;};
-  $("heroFlip").innerHTML = svg(A,"f1")+svg(Bf,"f2");
-  $("badge").innerHTML = svg(A,"").replace('width="40"','width="40" style="position:static"');
+  /* ---------- 데이터 정리 ---------- */
+  const EP = (window.EPISODES||[]).map((e,i)=>{
+    const p = String(e.date||"").trim().split("-");
+    const y = +p[0]||0, m = +p[1]||0, d = +p[2]||0;
+    const who = Array.isArray(e.who) ? e.who : String(e.who||"").split(/[,，、]/);
+    const w = who.map(s=>s.trim()).filter(Boolean);
+    return {...e, y, m, d, who:w, _i:i,
+      _hay:[e.title,e.text,w.join(" ")].join(" ").toLowerCase()};
+  }).filter(e=>e.y).sort((a,b)=>a.y-b.y||a.m-b.m||a.d-b.d||a._i-b._i);
 
-  /* ---- 슬롯 정보 ---- */
-  $("squadName").textContent = SQUAD.name;
-  document.title = SQUAD.name + " 세이브 파일";
-  const firstY = EP.length ? +EP[0]._k.slice(0,4) : new Date().getFullYear();
-  const playYears = new Date().getFullYear() - firstY;
-  $("stats").innerHTML =
-    `<span>플레이 타임 <b>${playYears}년째</b></span>`+
-    `<span>모은 에피소드 <b>${EP.length}개</b></span>`+
-    (EP.length?`<span>최근 기록 <b>${esc(fmt(EP[EP.length-1]))}</b></span>`:"");
+  const fmt = e => e.y+"년"+(e.m?" "+e.m+"월":"")+(e.d?" "+e.d+"일":"");
+  const inYear = y => EP.filter(e=>e.y===y);
 
-  /* ---- 대원 필터 ---- */
-  let filter = null;
-  const chips = [];
-  (SQUAD.members||[]).forEach(m=>{
-    const b=document.createElement("button");
-    b.className="chip"; b.type="button"; b.setAttribute("aria-pressed","false");
-    b.innerHTML=`<i style="background:${esc(m.color)}"></i>${esc(m.name)}`;
-    b.onclick=()=>{ filter = filter===m.name?null:m.name; applyFilter(); };
-    chips.push([m.name,b]); $("members").appendChild(b);
+  /* ---------- 제목 ---------- */
+  const t = $("title"); t.setAttribute("aria-label", SQUAD.name);
+  [...SQUAD.name].forEach((ch,i)=>{
+    const s=document.createElement("span"); s.textContent=ch; s.setAttribute("aria-hidden","true");
+    s.style.color=col(i*3+1); s.style.transform=`rotate(${[-4,3,-2,5,-3,2,-5][i%7]}deg) translateY(${[0,3,-2,1,-3,2,0][i%7]}px)`;
+    t.appendChild(s);
   });
-  function applyFilter(){
-    chips.forEach(([n,b])=>b.setAttribute("aria-pressed", String(n===filter)));
-    EP.forEach(e=>e._el.classList.toggle("dim", !!filter && !e.who.includes(filter)));
+  $("sub").innerHTML = `${Y0}년부터 ${Y1}년까지, 지금까지 맞춘 기억 <b>${EP.length}조각</b>`;
+
+  /* ---------- 퍼즐 조각 모양 ---------- */
+  function edge(x0,y0,x1,y1,t){
+    if(!t) return ` L${x1} ${y1}`;
+    const dx=x1-x0, dy=y1-y0, nx=dy*t, ny=-dx*t;
+    const P=(a,b)=>(x0+dx*a+nx*b).toFixed(1)+" "+(y0+dy*a+ny*b).toFixed(1);
+    return ` L${P(.35,0)} C${P(.41,0)} ${P(.41,.07)} ${P(.37,.11)} C${P(.31,.18)} ${P(.35,.27)} ${P(.5,.27)} C${P(.65,.27)} ${P(.69,.18)} ${P(.63,.11)} C${P(.59,.07)} ${P(.59,0)} ${P(.65,0)} L${x1} ${y1}`;
+  }
+  const piecePath=(x,y,s,T,R,B,L)=>`M${x} ${y}`+edge(x,y,x+s,y,T)+edge(x+s,y,x+s,y+s,R)+edge(x+s,y+s,x,y+s,B)+edge(x,y+s,x,y,L)+" Z";
+  function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  const sign = r => r()<.5?-1:1;
+
+  function makePiece(d, color, filled){
+    const g=document.createElementNS(NS,"g");
+    g.innerHTML =
+      `<path class="fill" d="${d}" fill="${color}" fill-opacity="${filled}" filter="url(#pencil)"/>`+
+      `<path class="edge" d="${d}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linejoin="round" filter="url(#wobble)"/>`;
+    return g;
   }
 
-  /* ---- 길 위에 배치 ---- */
-  const track=$("track"), world=$("world"), hero=$("hero");
-  let x=60, lastY=null; const yearStart={};
-  EP.forEach((e,idx)=>{
-    const y=e._k.slice(0,4);
-    if(y!==lastY){
-      const s=document.createElement("div");
-      s.className="sign"; s.style.left=x+"px";
-      s.innerHTML=`<div class="sign-board">${esc(y)}</div><div class="sign-post"></div>`;
-      track.appendChild(s); yearStart[y]=idx; lastY=y; x+=124;
+  /* ---------- 상태 ---------- */
+  let selY=null, selM=null, query="";
+  const matches = e => !query || e._hay.includes(query);
+
+  /* ---------- 연도: 실로 이어진 조각들 ---------- */
+  const years=[]; for(let y=Y0;y<=Y1;y++) years.push(y);
+  const S=78, GAP=50, PAD=60, H=180, CY=H/2;
+  const W = PAD*2 + years.length*S + (years.length-1)*GAP;
+  const ysvg=document.createElementNS(NS,"svg");
+  ysvg.setAttribute("viewBox",`0 0 ${W} ${H}`); ysvg.setAttribute("width",W); ysvg.setAttribute("height",H);
+  const yr=rng(2017), yv=years.map(()=>sign(yr));
+  // 실
+  const pts=[[0,CY+28]]; years.forEach((y,i)=>pts.push([PAD+i*(S+GAP)+S/2, CY+(i%2?14:-14)])); pts.push([W,CY-24]);
+  let dpath=`M${pts[0][0]} ${pts[0][1]}`;
+  for(let i=0;i<pts.length-1;i++){
+    const [x0,y0]=pts[i],[x1,y1]=pts[i+1], mx=(x0+x1)/2;
+    dpath+=` C${mx} ${y0+(i%2?-30:30)} ${mx} ${y1+(i%2?30:-30)} ${x1} ${y1}`;
+  }
+  const thread=document.createElementNS(NS,"path");
+  thread.setAttribute("d",dpath); thread.setAttribute("fill","none");
+  thread.setAttribute("stroke","var(--ink)"); thread.setAttribute("stroke-width","1.6");
+  thread.setAttribute("stroke-linecap","round"); thread.setAttribute("filter","url(#wobble)");
+  ysvg.appendChild(thread);
+  const yEls={};
+  years.forEach((y,i)=>{
+    const x=PAD+i*(S+GAP), top=CY-S/2;
+    const d=piecePath(x,top,S, sign(yr), i<years.length-1?yv[i]:0, sign(yr), i>0?-yv[i-1]:0);
+    const n=inYear(y).length, c=col(i);
+    const g=makePiece(d,c, n?.35:.0);
+    g.classList.add("yp"); g.setAttribute("role","button"); g.setAttribute("tabindex","0");
+    g.setAttribute("aria-label",`${y}년, 기억 ${n}개`);
+    // 실 뒤로 가리도록 종이색 바탕
+    g.insertAdjacentHTML("afterbegin",`<path d="${d}" fill="var(--paper)"/>`);
+    g.insertAdjacentHTML("beforeend",
+      `<text x="${x+S/2}" y="${CY+2}" text-anchor="middle" font-size="24">${y}</text>`+
+      `<text class="cnt" x="${x+S/2}" y="${CY+24}" text-anchor="middle" font-size="16">${n?n+"개":"비어 있음"}</text>`);
+    g.addEventListener("click",()=>pickYear(y));
+    g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); pickYear(y);} });
+    ysvg.appendChild(g); yEls[y]={g,i,x,n};
+  });
+  $("years").appendChild(ysvg);
+
+  function paintYears(){
+    years.forEach(y=>{
+      const {g,n,i}=yEls[y];
+      const on=y===selY;
+      g.querySelector(".fill").setAttribute("fill-opacity", on?.85:(n?.32:0));
+      g.querySelector(".edge").setAttribute("stroke-width", on?3.4:2.4);
+      const hit = query ? inYear(y).filter(matches).length : null;
+      g.classList.toggle("dim", query!=="" && !hit);
+      g.querySelector(".cnt").textContent = query ? (hit?`찾음 ${hit}`:"없음") : (n?n+"개":"비어 있음");
+      g.setAttribute("aria-pressed", String(on));
+    });
+  }
+
+  /* ---------- 월: 12조각 퍼즐 ---------- */
+  const PS=100;
+  function buildPuzzle(y){
+    const svg=$("puzzle"); svg.innerHTML="";
+    const r=rng(y*31), h=[[0,0,0,0],[0,0,0,0]].map(row=>row.map(()=>sign(r))), v=[0,1,2].map(()=>[0,0,0].map(()=>sign(r)));
+    const list=inYear(y);
+    const yi=yEls[y].i;
+    const order=[];
+    for(let m=1;m<=12;m++){
+      const rr=Math.floor((m-1)/4), cc=(m-1)%4;
+      const d=piecePath(cc*PS, rr*PS, PS,
+        rr>0?-h[rr-1][cc]:0, cc<3?v[rr][cc]:0, rr<2?h[rr][cc]:0, cc>0?-v[rr][cc-1]:0);
+      const n=list.filter(e=>e.m===m).length;
+      const g=makePiece(d, col(m+yi), n?.7:0);
+      g.insertAdjacentHTML("afterbegin",`<path d="${d}" fill="var(--paper)" fill-opacity="${n?0:.0}"/>`);
+      g.classList.add("mp"); if(!n) g.classList.add("empty");
+      g.setAttribute("role","button"); g.setAttribute("tabindex","0");
+      g.setAttribute("aria-label",`${m}월, 기억 ${n}개`);
+      const cx=cc*PS+PS/2, cy=rr*PS+PS/2;
+      g.insertAdjacentHTML("beforeend",
+        `<text class="m" x="${cx}" y="${cy+4}" text-anchor="middle">${m}월</text>`+
+        `<text class="n" x="${cx}" y="${cy+26}" text-anchor="middle">${n?n+"개":""}</text>`);
+      g.dataset.m=m; g.dataset.n=n;
+      g.addEventListener("click",()=>pickMonth(m));
+      g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); pickMonth(m);} });
+      order.push(g);
     }
-    e._x=x;
-    const n=document.createElement("div");
-    n.className="node"; n.style.left=x+"px";
-    const m=e._k.slice(5,7);
-    const dots=e.who.map(w=>`<i style="background:${esc(colorOf[w]||"#999")}"></i>`).join("");
-    n.innerHTML=`<button class="card px" type="button" aria-label="${esc(fmt(e)+" "+e.title)}">
-        <div class="m">${m!=="00"?(+m)+"월":"그해"}</div>
-        <div class="t">${esc(e.title)}</div>
-        <div class="dots">${dots}</div></button><div class="pole"></div>`;
-    n.querySelector("button").onclick=()=>select(idx);
-    track.appendChild(n); e._el=n; x+=156;
-  });
-  const W=Math.max(x+140, 600);
-  track.style.width=W+"px";
-  for(let cx=80; cx<W; cx+=380+((cx*7)%160)){
-    const c=document.createElement("div"); c.className="cloud";
-    c.style.left=cx+"px"; c.style.top=(40+((cx*13)%70))+"px";
-    track.insertBefore(c, track.firstChild);
+    order.forEach(g=>svg.appendChild(g));
+    const some=list.filter(e=>!e.m).length;
+    const sb=$("someday"); sb.hidden=!some; sb.textContent=`몇 월인지 모르는 기억 ${some}개`;
+    sb.onclick=()=>pickMonth(0);
+  }
+  function paintMonths(){
+    const list=inYear(selY);
+    $("puzzle").querySelectorAll(".mp").forEach(g=>{
+      const m=+g.dataset.m, on=m===selM;
+      g.classList.toggle("on", on);
+      if(on) g.parentNode.appendChild(g); // 선택한 조각이 위로
+      const hit=list.filter(e=>e.m===m&&matches(e)).length;
+      g.classList.toggle("dim", query!=="" && !hit);
+      g.setAttribute("aria-pressed",String(on));
+      if(!g.classList.contains("empty")) g.querySelector(".fill").setAttribute("fill-opacity", on?.8:.55);
+    });
+    $("someday").setAttribute("aria-pressed", String(selM===0));
   }
 
-  /* ---- 연도 점프 ---- */
-  const yearBtns={};
-  Object.keys(yearStart).forEach(y=>{
-    const b=document.createElement("button"); b.type="button"; b.textContent=y;
-    b.onclick=()=>select(yearStart[y]); yearBtns[y]=b; $("years").appendChild(b);
-  });
-
-  /* ---- 선택 & 대화창 ---- */
-  let cur=-1, typer=null, walkT=null;
-  function select(i, smooth=true){
-    if(!EP.length) return;
-    i=Math.max(0,Math.min(EP.length-1,i));
-    const e=EP[i];
-    if(cur>=0) EP[cur]._el.classList.remove("on");
-    e._el.classList.add("on");
-    const hx=e._x+46;
-    const prevLeft=parseFloat(hero.style.left||hx);
-    hero.classList.toggle("left", hx<prevLeft);
-    hero.style.left=hx+"px";
-    if(!reduce && cur>=0 && hx!==prevLeft){
-      hero.classList.add("walk"); clearTimeout(walkT);
-      walkT=setTimeout(()=>hero.classList.remove("walk"),700);
+  /* ---------- 쪽지 ---------- */
+  function hl(s){
+    const safe=esc(s); if(!query) return safe;
+    const q=esc(query).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    return safe.replace(new RegExp(q,"gi"),m=>`<mark>${m}</mark>`);
+  }
+  function card(e, jump){
+    const c=col(e.m+yEls[e.y]?.i||0);
+    return `<article class="note${jump?" jump":""}" style="--c:${c}" data-y="${e.y}" data-m="${e.m}">
+      <div class="d">${esc(fmt(e))}</div>
+      <h3>${hl(e.title)}</h3>
+      <p>${hl(e.text)}</p>
+      ${e.who.length?`<div class="who">${e.who.map(w=>`<button type="button" data-who="${esc(w)}">${hl(w)}</button>`).join("")}</div>`:""}
+    </article>`;
+  }
+  function renderNotes(){
+    const box=$("notes");
+    if(query){
+      const res=EP.filter(matches);
+      box.innerHTML=`<h2>‘${esc(query)}’ 찾기</h2><p class="meta">${res.length?`${res.length}개의 기억이 나왔어요. 누르면 그 달의 퍼즐로 이동해요.`:"맞는 기억이 없어요. 이름 한 글자만 적어 봐도 돼요."}</p>`+
+        res.map(e=>card(e,true)).join("");
+      return;
     }
-    cur=i;
-    world.scrollTo({left:e._x-world.clientWidth/2+66, behavior:(smooth&&!reduce)?"smooth":"auto"});
-    const y=e._k.slice(0,4);
-    Object.entries(yearBtns).forEach(([k,b])=>b.setAttribute("aria-current",String(k===y)));
-    $("dlgDate").textContent=fmt(e);
-    $("dlgTitle").textContent=e.title||"";
-    $("dlgWho").textContent=e.who.length?"함께한 대원: "+e.who.join(", "):"";
-    $("pos").textContent=(i+1)+" / "+EP.length;
-    $("prev").disabled=i===0; $("next").disabled=i===EP.length-1;
-    type(e.text||"");
+    const list=inYear(selY).filter(e=>e.m===selM);
+    const label=selM?`${selY}년 ${selM}월`:`${selY}년 언젠가`;
+    if(!list.length){
+      box.innerHTML=`<h2>${label}</h2><p class="empty-note">아직 비어 있는 조각이에요. <code>episodes.js</code>에 <code>date: "${selY}-${String(selM||1).padStart(2,"0")}"</code>로 적으면 여기에 채워져요.</p>`;
+      return;
+    }
+    box.innerHTML=`<h2>${label}</h2><p class="meta">기억 ${list.length}개</p>`+list.map(e=>card(e,false)).join("");
   }
-  function type(t){
-    clearInterval(typer);
-    const out=$("dlgText"), caret=$("caret");
-    caret.classList.remove("show");
-    if(reduce){ out.textContent=t; caret.classList.add("show"); return; }
-    let k=0; out.textContent="";
-    typer=setInterval(()=>{ k+=1; out.textContent=t.slice(0,k);
-      if(k>=t.length){ clearInterval(typer); typer=null; caret.classList.add("show"); } },28);
-    out.dataset.full=t;
-  }
-  $("dialog").addEventListener("click",ev=>{
-    if(ev.target.closest("button")) return;
-    if(typer){ clearInterval(typer); typer=null; $("dlgText").textContent=$("dlgText").dataset.full; $("caret").classList.add("show"); }
+  $("notes").addEventListener("click",ev=>{
+    const w=ev.target.closest("[data-who]");
+    if(w){ ev.stopPropagation(); setQuery(w.dataset.who); return; }
+    const n=ev.target.closest(".note.jump");
+    if(n){ pickYear(+n.dataset.y, +n.dataset.m); }
   });
-  $("prev").onclick=()=>select(cur-1);
-  $("next").onclick=()=>select(cur+1);
-  document.addEventListener("keydown",ev=>{
-    if(ev.key==="ArrowRight"){ select(cur+1); ev.preventDefault(); }
-    if(ev.key==="ArrowLeft"){ select(cur-1); ev.preventDefault(); }
-  });
-  world.addEventListener("wheel",ev=>{
-    if(Math.abs(ev.deltaY)>Math.abs(ev.deltaX)){ world.scrollLeft+=ev.deltaY; ev.preventDefault(); }
-  },{passive:false});
 
-  if(EP.length){ hero.style.left=(EP[0]._x+46)+"px"; select(0,false); }
-  else{
-    hero.style.left="80px";
-    $("dlgTitle").textContent="아직 저장된 에피소드가 없어요";
-    $("dlgText").textContent="episodes.js 파일을 열어 첫 에피소드를 적어 주세요.";
-    $("prev").disabled=$("next").disabled=true;
+  /* ---------- 선택 ---------- */
+  function pickYear(y, m){
+    if(selY!==y){ selY=y; buildPuzzle(y); }
+    const list=inYear(y);
+    if(m===undefined){
+      const firstHit = list.find(matches);
+      m = firstHit ? firstHit.m : (list[0]?list[0].m:1);
+    }
+    const n=list.length;
+    $("yearTitle").textContent=`${y}년의 조각`;
+    $("yearHint").textContent= n ? `12조각 중 ${new Set(list.filter(e=>e.m).map(e=>e.m)).size}조각을 맞췄어요` : "아직 한 조각도 없어요";
+    const {x}=yEls[y]; const box=$("years");
+    box.scrollTo({left:x-box.clientWidth/2+S/2, behavior:"smooth"});
+    paintYears();
+    pickMonth(m);
   }
+  function pickMonth(m){
+    selM=m;
+    paintMonths();
+    renderNotes();
+  }
+
+  /* ---------- 검색 ---------- */
+  const qi=$("q");
+  function setQuery(v){ qi.value=v; onQuery(); qi.focus(); }
+  function onQuery(){
+    query=qi.value.trim().toLowerCase();
+    $("clear").hidden=!query;
+    if(query && !inYear(selY).some(matches)){
+      const hit=[...EP].reverse().find(matches);
+      if(hit){ pickYear(hit.y, hit.m); return; }
+    }
+    paintYears(); paintMonths(); renderNotes();
+  }
+  qi.addEventListener("input",onQuery);
+  $("clear").onclick=()=>setQuery("");
+
+  /* ---------- 시작: 가장 최근 기억이 있는 해 ---------- */
+  const last=[...EP].reverse().find(e=>e.y>=Y0&&e.y<=Y1);
+  pickYear(last?last.y:Y1, last?last.m:undefined);
 })();
 </script>
 </body>
