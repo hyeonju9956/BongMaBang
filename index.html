@@ -3,384 +3,375 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>봉현마을방범대 기억 퍼즐</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
+<title>봉현마을방범대의 밤하늘</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F7F1E3; --paper2:#EFE6D2; --ink:#3B332C; --ink-soft:#8A7F73;
-  --c0:#E8574A; --c1:#F2913A; --c2:#E9B92E; --c3:#7BB661; --c4:#5FA3D9; --c5:#9C7BC9; --c6:#EE82A8;
-  --mark:rgba(242,197,61,.55);
+  --night:#0E1230; --night2:#1B2152; --ink:#F4EEDB; --soft:#9EA5D2; --line:rgba(244,238,219,.5);
+  --gold:#FFE08A; --moon:#F5E9C4; --moon2:#DCCB98;
+  --e0:#FF9A8A; --e1:#FFC07A; --e2:#FFE58A; --e3:#A6E59A; --e4:#8FCBFF; --e5:#C7AEFF; --e6:#FFA6CF;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --paper:#27221E; --paper2:#322B26; --ink:#EFE6D6; --ink-soft:#A89C8E; --mark:rgba(233,185,46,.4); }
-}
-:root[data-theme="dark"]{ --paper:#27221E; --paper2:#322B26; --ink:#EFE6D6; --ink-soft:#A89C8E; --mark:rgba(233,185,46,.4); }
 *{box-sizing:border-box;margin:0;padding:0}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--night)}
 body{
-  background-color:var(--paper);
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  color:var(--ink);
-  font-family:"Gaegu","Nanum Pen Script","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  font-size:19px; line-height:1.5;
-  min-height:100vh;
+  background:radial-gradient(120% 80% at 70% 0%, var(--night2), var(--night) 60%) fixed, var(--night);
+  color:var(--ink); min-height:100vh;
+  font-family:"Gaegu","Apple SD Gothic Neo","Malgun Gothic",sans-serif; font-size:19px; line-height:1.55; word-break:keep-all;
 }
 button,input{font:inherit;color:inherit}
 button{background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px dashed var(--c4);outline-offset:3px}
-.wrap{max-width:1080px;margin:0 auto;padding:36px 20px 60px}
+:focus-visible{outline:2px dashed var(--gold);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:30px 20px 70px}
+.jua{font-family:"Jua","Gaegu",sans-serif;font-weight:400}
 
-/* ---- 제목: 낱말 퍼즐처럼 한 글자씩 다른 색 ---- */
-.head{display:grid;grid-template-columns:1fr minmax(260px,360px);gap:16px 40px;align-items:end}
-h1{font-weight:700;font-size:clamp(40px,7vw,68px);line-height:1;letter-spacing:2px}
-h1 span{display:inline-block}
-.sub{font-size:20px;color:var(--ink-soft);margin-top:10px}
-.sub b{color:var(--ink);font-weight:700}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 30px}
+h1{font-family:"Jua",sans-serif;font-weight:400;font-size:clamp(32px,5.4vw,52px);line-height:1.1}
+.since{display:block;font-size:16px;letter-spacing:3px;color:var(--gold);margin-bottom:6px;font-family:"Jua",sans-serif}
+.progress{font-size:19px;color:var(--soft);max-width:30em}
+.progress b{color:var(--gold);font-weight:700}
 
-/* ---- 검색 ---- */
-.search{position:relative}
-.search label{display:block;font-size:17px;margin-bottom:4px}
-.search input{
-  width:100%;padding:8px 44px 8px 14px;font-size:20px;
-  background:transparent;border:2px solid var(--ink);border-radius:18px 6px 16px 8px/8px 16px 6px 18px;
-  outline:none;
+/* ---- 하늘 ---- */
+.sky{margin:18px -20px 0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.sky::-webkit-scrollbar{display:none}
+#sky{display:block;width:100%;min-width:820px;height:auto}
+.bgstar{fill:#fff}
+.bbdot{fill:var(--ink);opacity:.45}
+.bbghost{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:2 7;stroke-linecap:round;opacity:.22}
+.bbline{stroke:var(--line);stroke-width:1.2;fill:none;stroke-linecap:round}
+.star{cursor:pointer}
+.star .core{transform-box:fill-box;transform-origin:center}
+.star.dim{opacity:.16}
+.star.on .ring{opacity:1}
+.ring{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-dasharray:3 3;opacity:0}
+.star:focus{outline:none}
+.star:focus-visible .ring{opacity:1}
+.newest .core{animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.35)}}
+.born{opacity:0;animation:born .6s ease-out forwards;animation-delay:var(--d)}
+@keyframes born{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
+.born{transform-box:fill-box;transform-origin:center}
+.findline{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-dasharray:2 6;stroke-linecap:round}
+.label{font-family:"Gaegu",sans-serif;fill:var(--soft);font-size:17px}
+.name{font-family:"Gaegu",sans-serif;fill:var(--ink);font-size:16px;cursor:pointer}
+.name:hover{fill:var(--gold)}
+.dragon{stroke:var(--soft);stroke-width:1;fill:none;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
+
+/* ---- 별 이야기 ---- */
+.story{margin:6px auto 0;max-width:720px;min-height:150px;text-align:center;padding:10px 6px 0}
+.story .era{display:inline-block;font-size:16px;padding:1px 12px;border-radius:999px;border:1.5px solid var(--c);color:var(--c)}
+.story h2{font-family:"Jua",sans-serif;font-weight:400;font-size:30px;line-height:1.25;margin:8px 0 6px}
+.story p{font-size:20px;line-height:1.6;max-width:34em;margin:0 auto}
+.story .meta{font-size:16px;color:var(--soft);margin-top:10px;display:flex;justify-content:center;align-items:center;gap:18px}
+.story .meta button{padding:2px 8px;color:var(--soft)}
+.story .meta button:hover{color:var(--ink)}
+.story .legend{font-size:17px;color:var(--soft)}
+.who{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 12px;margin-top:8px;font-size:17px}
+.who button{color:var(--soft);border-bottom:1.5px dashed currentColor;line-height:1.25}
+.who button:hover{color:var(--gold)}
+mark{background:none;color:var(--gold);border-bottom:2px solid var(--gold)}
+
+/* ---- 찾기 & 시기 ---- */
+.controls{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between;border-top:1.5px dashed rgba(158,165,210,.35);padding-top:26px}
+.eras{display:flex;flex-wrap:wrap;gap:8px}
+.eras button{padding:3px 14px;border-radius:999px;border:1.5px solid rgba(158,165,210,.5);font-size:18px;color:var(--soft);display:flex;align-items:center;gap:6px}
+.eras button i{width:9px;height:9px;border-radius:50%;background:var(--c);display:block}
+.eras button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:rgba(244,238,219,.08)}
+.find{position:relative;flex:1 1 260px;max-width:360px}
+.find input{width:100%;padding:7px 38px 7px 16px;font-size:19px;background:rgba(14,18,48,.6);border:1.5px solid rgba(158,165,210,.6);border-radius:999px;outline:none}
+.find input:focus{border-color:var(--gold)}
+.find input::placeholder{color:var(--soft)}
+.find input::-webkit-search-cancel-button{display:none}
+.find .x{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--soft);padding:2px 6px}
+.find .x[hidden]{display:none}
+
+.list{margin-top:26px;columns:2 340px;column-gap:28px}
+.group{break-inside:avoid;margin-bottom:22px}
+.group h3{font-family:"Jua",sans-serif;font-weight:400;font-size:22px;color:var(--c);margin-bottom:6px;display:flex;align-items:baseline;gap:8px}
+.group h3 small{font-family:"Gaegu",sans-serif;font-size:16px;color:var(--soft)}
+.item{display:block;width:100%;text-align:left;padding:8px 0 8px 18px;position:relative;border-radius:6px}
+.item::before{content:"✦";position:absolute;left:0;top:9px;color:var(--c);font-size:13px}
+.item b{font-weight:700;font-size:19px}
+.item span{display:block;font-size:17px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item:hover b,.item.on b{color:var(--gold)}
+.empty{color:var(--soft);font-size:19px}
+
+@media (prefers-reduced-motion:reduce){
+  .newest .core,.born{animation:none;opacity:1}
 }
-.search input:focus{border-color:var(--c4)}
-.search input::-webkit-search-cancel-button{display:none}
-.search .x{position:absolute;right:10px;bottom:6px;font-size:24px;line-height:1;padding:4px;color:var(--ink-soft)}
-.search .x[hidden]{display:none}
-
-/* ---- 연도 실 ---- */
-.years{margin:34px -20px 8px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
-.years svg{display:block;margin:0 auto}
-.yp{cursor:pointer}
-.yp text{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round;font-family:inherit;font-weight:700;fill:var(--ink);pointer-events:none}
-.yp .cnt{font-weight:400;fill:var(--ink-soft)}
-.yp:focus{outline:none}
-.yp:focus-visible .edge{stroke-dasharray:6 4}
-.yp.dim{opacity:.25}
-
-/* ---- 한 해 = 12조각 퍼즐 ---- */
-.year-view{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px 44px;margin-top:18px;align-items:start}
-.board h2,.notes h2{font-weight:700;font-size:30px;line-height:1.2;margin-bottom:8px}
-.board .hint{font-size:17px;color:var(--ink-soft);margin-bottom:6px}
-#puzzle{width:100%;height:auto;display:block;overflow:visible}
-.mp{cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
-.mp text{paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round;font-family:inherit;pointer-events:none;fill:var(--ink)}
-.mp .m{font-weight:700;font-size:26px}
-.mp .n{font-size:17px;fill:var(--ink-soft)}
-.mp.empty .edge{stroke:var(--ink-soft);stroke-dasharray:5 5;stroke-width:1.6}
-.mp.empty text{fill:var(--ink-soft)}
-.mp.on{transform:translate(0,-10px)}
-.mp.dim{opacity:.22}
-.mp:focus{outline:none}
-.mp:focus-visible .edge{stroke-width:4}
-.someday{margin-top:10px;font-size:18px;padding:4px 12px;border:2px solid var(--ink);border-radius:14px 5px 12px 6px}
-.someday[aria-pressed="true"]{background:var(--c2);color:#3B332C}
-.someday[hidden]{display:none}
-
-/* ---- 기억 쪽지 ---- */
-.notes{min-height:200px}
-.notes .meta{font-size:17px;color:var(--ink-soft);margin-bottom:14px}
-.note{position:relative;padding:14px 18px 14px 22px;margin-bottom:16px;background:var(--paper2);
-  border-radius:4px 14px 6px 12px/12px 5px 14px 4px;cursor:default}
-.note::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:5px;border-radius:4px;background:var(--c)}
-.note.jump{cursor:pointer}
-.note .d{font-size:16px;color:var(--c);font-weight:700}
-.note h3{font-weight:700;font-size:24px;line-height:1.25;margin:2px 0 4px}
-.note p{font-size:19px;line-height:1.55;max-width:38em}
-.note .who{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:8px;font-size:16px}
-.note .who button{color:var(--ink-soft);border-bottom:1.5px dashed currentColor;line-height:1.2}
-.note .who button:hover{color:var(--ink)}
-mark{background:linear-gradient(transparent 35%,var(--mark) 35% 90%,transparent 90%);color:inherit}
-.empty-note{font-size:19px;color:var(--ink-soft);padding:18px 0;max-width:30em}
-.empty-note code{font-family:inherit;color:var(--ink);background:var(--paper2);padding:0 6px;border-radius:4px}
-
-@media (max-width:760px){
-  .head{grid-template-columns:1fr}
-  .year-view{grid-template-columns:1fr}
-}
-@media (prefers-reduced-motion:reduce){ .mp{transition:none} }
 </style>
 </head>
 <body>
-
-<!-- 색연필 질감 필터 -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="w"/>
-    <feDisplacementMap in="SourceGraphic" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
-  <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
-    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="w"/>
-    <feDisplacementMap in="SourceGraphic" in2="w" scale="3" xChannelSelector="R" yChannelSelector="G" result="d"/>
-    <feTurbulence type="fractalNoise" baseFrequency="0.9 0.35" numOctaves="2" seed="9" result="g"/>
-    <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.55" result="ga"/>
-    <feComposite in="d" in2="ga" operator="in"/>
-  </filter>
-</svg>
-
 <div class="wrap">
-  <header class="head">
+  <header>
     <div>
-      <h1 id="title" aria-label=""></h1>
-      <p class="sub" id="sub"></p>
+      <span class="since" id="since"></span>
+      <h1 id="title"></h1>
     </div>
-    <div class="search">
-      <label for="q">누구랑 있었던 일이더라?</label>
-      <input id="q" type="search" placeholder="친구 이름이나 키워드" autocomplete="off">
-      <button class="x" id="clear" type="button" aria-label="검색어 지우기" hidden>×</button>
-    </div>
+    <p class="progress" id="progress"></p>
   </header>
 
-  <nav class="years" id="years" aria-label="연도 고르기"></nav>
+  <div class="sky" id="skyWrap">
+    <svg id="sky" viewBox="0 0 1200 700" role="img" aria-label="썰이 별이 되어 떠 있는 밤하늘">
+      <defs>
+        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4"/></filter>
+        <radialGradient id="moonShade" cx="38%" cy="35%" r="70%">
+          <stop offset="0" stop-color="#FFF7DA"/><stop offset="1" stop-color="#E7D7A6"/>
+        </radialGradient>
+        <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
+      </defs>
+      <g id="bg"></g>
+      <g id="dragon"></g>
+      <g id="moon"></g>
+      <g id="bbDots"></g>
+      <g id="bbLines"></g>
+      <path id="findline" class="findline" d=""/>
+      <g id="stars"></g>
+    </svg>
+  </div>
 
-  <section class="year-view">
-    <div class="board">
-      <h2 id="yearTitle"></h2>
-      <p class="hint" id="yearHint"></p>
-      <svg id="puzzle" viewBox="-34 -34 468 368" role="group" aria-label="월별 조각"></svg>
-      <button class="someday" id="someday" type="button" aria-pressed="false" hidden></button>
+  <section class="story" id="story" aria-live="polite"></section>
+
+  <section class="controls">
+    <div class="eras" id="eras" role="group" aria-label="시기별로 보기"></div>
+    <div class="find">
+      <input id="q" type="search" placeholder="친구 이름이나 키워드로 별 찾기" autocomplete="off" aria-label="별 찾기">
+      <button class="x" id="clear" type="button" aria-label="검색어 지우기" hidden>×</button>
     </div>
-    <div class="notes" id="notes" aria-live="polite"></div>
   </section>
+
+  <section class="list" id="list"></section>
 </div>
 
 <script src="episodes.js"></script>
 <script>
 (function(){
-  const SQUAD = Object.assign({name:"우리 방범대", startYear:2017, endYear:new Date().getFullYear()}, window.SQUAD||{});
-  const Y0 = +SQUAD.startYear, Y1 = +SQUAD.endYear;
-  const COLORS = ["--c0","--c1","--c2","--c3","--c4","--c5","--c6"].map(v=>`var(${v})`);
-  const col = i => COLORS[((i%7)+7)%7];
-
+  const BB = [[[0.334,0.045],[0.226,0.069],[0.13,0.12],[0.063,0.206],[0.08,0.31],[0.128,0.397],[0.038,0.461],[0.001,0.561],[0.042,0.66],[0.125,0.736],[0.226,0.774],[0.338,0.77],[0.445,0.743],[0.471,0.653],[0.499,0.547],[0.523,0.442],[0.548,0.335],[0.569,0.226],[0.532,0.127],[0.446,0.057]],[[0.793,0.0],[0.707,0.013],[0.63,0.042],[0.628,0.127],[0.611,0.208],[0.593,0.292],[0.577,0.376],[0.569,0.462],[0.62,0.531],[0.694,0.567],[0.783,0.564],[0.862,0.538],[0.931,0.487],[0.964,0.411],[0.93,0.337],[0.927,0.278],[0.987,0.217],[0.994,0.136],[0.946,0.064],[0.876,0.017]],[[0.378,0.185],[0.404,0.277],[0.338,0.354],[0.224,0.321],[0.262,0.219]],[[0.319,0.464],[0.337,0.558],[0.277,0.656],[0.16,0.614],[0.2,0.503]],[[0.777,0.095],[0.872,0.121],[0.853,0.207],[0.762,0.243],[0.738,0.179]],[[0.752,0.328],[0.837,0.359],[0.8,0.436],[0.711,0.461],[0.697,0.385]]];
+  const SQ = Object.assign({name:"우리 방범대", since:2015, eras:[], rabbits:[], dragons:[]}, window.SQUAD||{});
+  const NS="http://www.w3.org/2000/svg";
   const $ = id => document.getElementById(id);
   const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const NS = "http://www.w3.org/2000/svg";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const PAL = ["--e0","--e1","--e2","--e3","--e4","--e5","--e6"].map(v=>`var(${v})`);
+  function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 
-  /* ---------- 데이터 정리 ---------- */
-  const EP = (window.EPISODES||[]).map((e,i)=>{
-    const p = String(e.date||"").trim().split("-");
-    const y = +p[0]||0, m = +p[1]||0, d = +p[2]||0;
-    const who = Array.isArray(e.who) ? e.who : String(e.who||"").split(/[,，、]/);
-    const w = who.map(s=>s.trim()).filter(Boolean);
-    return {...e, y, m, d, who:w, _i:i,
-      _hay:[e.title,e.text,w.join(" ")].join(" ").toLowerCase()};
-  }).filter(e=>e.y).sort((a,b)=>a.y-b.y||a.m-b.m||a.d-b.d||a._i-b._i);
-
-  const fmt = e => e.y+"년"+(e.m?" "+e.m+"월":"")+(e.d?" "+e.d+"일":"");
-  const inYear = y => EP.filter(e=>e.y===y);
+  /* ---------- 데이터 ---------- */
+  const ERAS=[...(SQ.eras||[])];
+  const EP=(window.EPISODES||[]).map((e,i)=>{
+    const who=(Array.isArray(e.who)?e.who:String(e.who||"").split(/[,，、]/)).map(s=>s.trim()).filter(Boolean);
+    const era=String(e.era||"언젠가").trim();
+    if(!ERAS.includes(era)) ERAS.push(era);
+    return {...e, i, who, era, _hay:[e.title,e.text,who.join(" "),era].join(" ").toLowerCase()};
+  });
+  const eraColor = era => PAL[ERAS.indexOf(era)%PAL.length];
 
   /* ---------- 제목 ---------- */
-  const t = $("title"); t.setAttribute("aria-label", SQUAD.name);
-  [...SQUAD.name].forEach((ch,i)=>{
-    const s=document.createElement("span"); s.textContent=ch; s.setAttribute("aria-hidden","true");
-    s.style.color=col(i*3+1); s.style.transform=`rotate(${[-4,3,-2,5,-3,2,-5][i%7]}deg) translateY(${[0,3,-2,1,-3,2,0][i%7]}px)`;
-    t.appendChild(s);
-  });
-  $("sub").innerHTML = `${Y0}년부터 ${Y1}년까지, 지금까지 맞춘 기억 <b>${EP.length}조각</b>`;
+  $("since").textContent = "SINCE "+SQ.since;
+  $("title").textContent = SQ.name+"의 밤하늘";
+  document.title = SQ.name+"의 밤하늘";
+  const BBN = BB.reduce((a,g)=>a+g.length,0);
+  const left = Math.max(0,BBN-EP.length);
+  $("progress").innerHTML = left
+    ? `썰 하나가 별 하나. 지금까지 별 <b>${EP.length}개</b>를 띄웠고, BB 별자리 완성까지 <b>${left}개</b> 남았어요.`
+    : `BB 별자리를 다 채웠어요! 지금은 별 <b>${EP.length}개</b>로 하늘을 넓혀 가는 중.`;
 
-  /* ---------- 퍼즐 조각 모양 ---------- */
-  function edge(x0,y0,x1,y1,t){
-    if(!t) return ` L${x1} ${y1}`;
-    const dx=x1-x0, dy=y1-y0, nx=dy*t, ny=-dx*t;
-    const P=(a,b)=>(x0+dx*a+nx*b).toFixed(1)+" "+(y0+dy*a+ny*b).toFixed(1);
-    return ` L${P(.35,0)} C${P(.41,0)} ${P(.41,.07)} ${P(.37,.11)} C${P(.31,.18)} ${P(.35,.27)} ${P(.5,.27)} C${P(.65,.27)} ${P(.69,.18)} ${P(.63,.11)} C${P(.59,.07)} ${P(.59,0)} ${P(.65,0)} L${x1} ${y1}`;
+  /* ---------- 배경 별 ---------- */
+  const W=1200,H=700, r0=rng(99);
+  let bg="";
+  for(let k=0;k<170;k++){
+    const x=r0()*W, y=r0()*H, r=r0()<.9?r0()*0.9+.3:r0()*1.4+.8;
+    bg+=`<circle class="bgstar" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" opacity="${(.15+r0()*.5).toFixed(2)}"/>`;
   }
-  const piecePath=(x,y,s,T,R,B,L)=>`M${x} ${y}`+edge(x,y,x+s,y,T)+edge(x+s,y,x+s,y+s,R)+edge(x+s,y+s,x,y+s,B)+edge(x,y+s,x,y,L)+" Z";
-  function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
-  const sign = r => r()<.5?-1:1;
+  $("bg").innerHTML=bg;
 
-  function makePiece(d, color, filled){
+  /* ---------- 달과 달토끼 ---------- */
+  const MX=1035, MY=128, MR=70;
+  $("moon").innerHTML=`
+    <circle cx="${MX}" cy="${MY}" r="${MR+10}" fill="#FFF1C2" opacity=".35" filter="url(#moonGlow)"/>
+    <circle cx="${MX}" cy="${MY}" r="${MR}" fill="url(#moonShade)"/>
+    <circle cx="${MX-34}" cy="${MY-30}" r="9" fill="#E3D19C" opacity=".6"/>
+    <circle cx="${MX+30}" cy="${MY+38}" r="6" fill="#E3D19C" opacity=".6"/>
+    <g fill="#CDB97F" opacity=".95">
+      <ellipse cx="${MX-6}" cy="${MY+20}" rx="22" ry="17"/>
+      <circle cx="${MX+16}" cy="${MY+2}" r="11"/>
+      <ellipse cx="${MX+11}" cy="${MY-18}" rx="4.2" ry="14" transform="rotate(-14 ${MX+11} ${MY-18})"/>
+      <ellipse cx="${MX+21}" cy="${MY-16}" rx="4.2" ry="13" transform="rotate(16 ${MX+21} ${MY-16})"/>
+      <circle cx="${MX-28}" cy="${MY+24}" r="6"/>
+      <rect x="${MX+28}" y="${MY+22}" width="16" height="14" rx="3"/>
+      <rect x="${MX+34}" y="${MY+4}" width="3" height="22" rx="1.5" transform="rotate(20 ${MX+35} ${MY+20})"/>
+    </g>
+    <circle cx="${MX+20}" cy="${MY}" r="1.6" fill="#8E7C4E"/>`;
+  const mg=$("moon");
+  const ml=document.createElementNS(NS,"text"); ml.setAttribute("class","label"); ml.setAttribute("x",MX); ml.setAttribute("y",MY+MR+30); ml.setAttribute("text-anchor","middle");
+  ml.textContent="토끼띠 대원들이 사는 달"; mg.appendChild(ml);
+  // 토끼띠 이름
+  const rab=SQ.rabbits||[]; const rw=rab.map(n=>n.length*15+16); const rtot=rw.reduce((a,b)=>a+b,0);
+  let rx=MX-rtot/2;
+  rab.forEach((n,k)=>{ const t=document.createElementNS(NS,"text"); t.setAttribute("class","name"); t.setAttribute("x",rx+rw[k]/2); t.setAttribute("y",MY+MR+54);
+    t.setAttribute("text-anchor","middle"); t.textContent=n; t.addEventListener("click",()=>setQuery(n)); mg.appendChild(t); rx+=rw[k]; });
+
+  /* ---------- 용자리 ---------- */
+  const DP=[[70,650],[120,612],[104,560],[150,520],[214,532],[246,486],[214,440],[232,398],[262,384]];
+  let dpath="M"+DP.map(p=>p.join(" ")).join(" L");
+  let dsvg=`<path class="dragon" d="${dpath}"/>`;
+  DP.forEach(p=>dsvg+=`<circle cx="${p[0]}" cy="${p[1]}" r="1.8" fill="var(--soft)"/>`);
+  dsvg+=`<text class="label" x="150" y="672">용자리</text>`;
+  $("dragon").innerHTML=dsvg;
+  const dIdx=[8,4,0]; // 머리, 몸통, 꼬리
+  (SQ.dragons||[]).slice(0,3).forEach((n,k)=>{
+    const [x,y]=DP[dIdx[k]];
     const g=document.createElementNS(NS,"g");
-    g.innerHTML =
-      `<path class="fill" d="${d}" fill="${color}" fill-opacity="${filled}" filter="url(#pencil)"/>`+
-      `<path class="edge" d="${d}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linejoin="round" filter="url(#wobble)"/>`;
-    return g;
-  }
+    g.innerHTML=`<circle cx="${x}" cy="${y}" r="7" fill="var(--e4)" opacity=".45" filter="url(#glow)"/><circle cx="${x}" cy="${y}" r="3.2" fill="#DDEBFF"/>`+
+      `<text class="name" x="${x+(k===1?14:12)}" y="${y+(k===2?-10:20)}">${esc(n)}</text>`;
+    g.style.cursor="pointer"; g.addEventListener("click",()=>setQuery(n));
+    $("dragon").appendChild(g);
+  });
+
+  /* ---------- BB 별자리 위치 ---------- */
+  const BX=405, BY=125, BW=470;
+  const bbPts=[]; BB.forEach((grp,gi)=>grp.forEach((p,k)=>bbPts.push({x:BX+p[0]*BW, y:BY+p[1]*BW, g:gi, k})));
+  $("bbDots").innerHTML=bbPts.map(p=>`<circle class="bbdot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.2"/>`).join("");
+  { let gp="", o=0; BB.forEach(grp=>{ gp+="M"+grp.map((_,k)=>bbPts[o+k].x.toFixed(1)+" "+bbPts[o+k].y.toFixed(1)).join(" L")+" Z "; o+=grp.length; });
+    $("bbDots").insertAdjacentHTML("afterbegin",`<path class="bbghost" d="${gp}"/>`); }
+  // 별 자리 정하기
+  const rf=rng(2015), placed=[];
+  const blocked=(x,y)=>(x>BX-40&&x<BX+BW+40&&y>BY-40&&y<BY+BW*.78+60)||
+    (Math.hypot(x-MX,y-MY)<MR+90)||(x<300&&y>360)||placed.some(p=>Math.hypot(p.x-x,p.y-y)<36);
+  EP.forEach(e=>{
+    if(e.i<bbPts.length){ e.x=bbPts[e.i].x; e.y=bbPts[e.i].y; e.bb=true; return; }
+    let x,y,t=0; do{ x=40+rf()*(W-80); y=36+rf()*(H-72); t++; }while(blocked(x,y)&&t<400);
+    e.x=x; e.y=y; placed.push(e);
+  });
+  // BB 선: 켜진 별끼리 잇기
+  let lines="", off=0;
+  BB.forEach(grp=>{
+    const n=grp.length;
+    for(let k=0;k<n;k++){
+      const a=off+k, b=off+(k+1)%n;
+      if(a<EP.length && b<EP.length) lines+=`M${bbPts[a].x.toFixed(1)} ${bbPts[a].y.toFixed(1)} L${bbPts[b].x.toFixed(1)} ${bbPts[b].y.toFixed(1)} `;
+    }
+    off+=n;
+  });
+  $("bbLines").innerHTML=`<path class="bbline" d="${lines}"/>`;
+
+  /* ---------- 별 그리기 ---------- */
+  const SPARK="M0 -9 C1.2 -2.4 2.4 -1.2 9 0 C2.4 1.2 1.2 2.4 0 9 C-1.2 2.4 -2.4 1.2 -9 0 C-2.4 -1.2 -1.2 -2.4 0 -9Z";
+  const starEls=[];
+  EP.forEach((e,idx)=>{
+    const c=eraColor(e.era), s=e.bright?1.45:1;
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","star"+(idx===EP.length-1?" newest":""));
+    g.setAttribute("transform",`translate(${e.x.toFixed(1)} ${e.y.toFixed(1)})`);
+    g.setAttribute("role","button"); g.setAttribute("tabindex","0");
+    g.setAttribute("aria-label",`${idx+1}번째 별, ${e.era}, ${e.title}`);
+    g.innerHTML=`<g class="${reduce?"":"born"}" style="--d:${(idx*55)}ms">
+        <circle r="${11*s}" fill="${c}" opacity=".45" filter="url(#glow)"/>
+        <path class="core" d="${SPARK}" transform="scale(${(.82*s).toFixed(2)})" fill="${c}"/>
+        <circle r="${1.8*s}" fill="#fff"/>
+        <circle class="ring" r="${14*s}"/>
+        <circle r="16" fill="transparent"/>
+      </g>`;
+    g.addEventListener("click",()=>select(idx));
+    g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(idx);} });
+    $("stars").appendChild(g); starEls.push(g);
+  });
 
   /* ---------- 상태 ---------- */
-  let selY=null, selM=null, query="";
-  const matches = e => !query || e._hay.includes(query);
+  let sel=null, era=null, query="";
+  const visible = e => (!era||e.era===era) && (!query||e._hay.includes(query));
 
-  /* ---------- 연도: 실로 이어진 조각들 ---------- */
-  const years=[]; for(let y=Y0;y<=Y1;y++) years.push(y);
-  const S=78, GAP=50, PAD=60, H=180, CY=H/2;
-  const W = PAD*2 + years.length*S + (years.length-1)*GAP;
-  const ysvg=document.createElementNS(NS,"svg");
-  ysvg.setAttribute("viewBox",`0 0 ${W} ${H}`); ysvg.setAttribute("width",W); ysvg.setAttribute("height",H);
-  const yr=rng(2017), yv=years.map(()=>sign(yr));
-  // 실
-  const pts=[[0,CY+28]]; years.forEach((y,i)=>pts.push([PAD+i*(S+GAP)+S/2, CY+(i%2?14:-14)])); pts.push([W,CY-24]);
-  let dpath=`M${pts[0][0]} ${pts[0][1]}`;
-  for(let i=0;i<pts.length-1;i++){
-    const [x0,y0]=pts[i],[x1,y1]=pts[i+1], mx=(x0+x1)/2;
-    dpath+=` C${mx} ${y0+(i%2?-30:30)} ${mx} ${y1+(i%2?30:-30)} ${x1} ${y1}`;
-  }
-  const thread=document.createElementNS(NS,"path");
-  thread.setAttribute("d",dpath); thread.setAttribute("fill","none");
-  thread.setAttribute("stroke","var(--ink)"); thread.setAttribute("stroke-width","1.6");
-  thread.setAttribute("stroke-linecap","round"); thread.setAttribute("filter","url(#wobble)");
-  ysvg.appendChild(thread);
-  const yEls={};
-  years.forEach((y,i)=>{
-    const x=PAD+i*(S+GAP), top=CY-S/2;
-    const d=piecePath(x,top,S, sign(yr), i<years.length-1?yv[i]:0, sign(yr), i>0?-yv[i-1]:0);
-    const n=inYear(y).length, c=col(i);
-    const g=makePiece(d,c, n?.35:.0);
-    g.classList.add("yp"); g.setAttribute("role","button"); g.setAttribute("tabindex","0");
-    g.setAttribute("aria-label",`${y}년, 기억 ${n}개`);
-    // 실 뒤로 가리도록 종이색 바탕
-    g.insertAdjacentHTML("afterbegin",`<path d="${d}" fill="var(--paper)"/>`);
-    g.insertAdjacentHTML("beforeend",
-      `<text x="${x+S/2}" y="${CY+2}" text-anchor="middle" font-size="24">${y}</text>`+
-      `<text class="cnt" x="${x+S/2}" y="${CY+24}" text-anchor="middle" font-size="16">${n?n+"개":"비어 있음"}</text>`);
-    g.addEventListener("click",()=>pickYear(y));
-    g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); pickYear(y);} });
-    ysvg.appendChild(g); yEls[y]={g,i,x,n};
-  });
-  $("years").appendChild(ysvg);
-
-  function paintYears(){
-    years.forEach(y=>{
-      const {g,n,i}=yEls[y];
-      const on=y===selY;
-      g.querySelector(".fill").setAttribute("fill-opacity", on?.85:(n?.32:0));
-      g.querySelector(".edge").setAttribute("stroke-width", on?3.4:2.4);
-      const hit = query ? inYear(y).filter(matches).length : null;
-      g.classList.toggle("dim", query!=="" && !hit);
-      g.querySelector(".cnt").textContent = query ? (hit?`찾음 ${hit}`:"없음") : (n?n+"개":"비어 있음");
-      g.setAttribute("aria-pressed", String(on));
-    });
-  }
-
-  /* ---------- 월: 12조각 퍼즐 ---------- */
-  const PS=100;
-  function buildPuzzle(y){
-    const svg=$("puzzle"); svg.innerHTML="";
-    const r=rng(y*31), h=[[0,0,0,0],[0,0,0,0]].map(row=>row.map(()=>sign(r))), v=[0,1,2].map(()=>[0,0,0].map(()=>sign(r)));
-    const list=inYear(y);
-    const yi=yEls[y].i;
-    const order=[];
-    for(let m=1;m<=12;m++){
-      const rr=Math.floor((m-1)/4), cc=(m-1)%4;
-      const d=piecePath(cc*PS, rr*PS, PS,
-        rr>0?-h[rr-1][cc]:0, cc<3?v[rr][cc]:0, rr<2?h[rr][cc]:0, cc>0?-v[rr][cc-1]:0);
-      const n=list.filter(e=>e.m===m).length;
-      const g=makePiece(d, col(m+yi), n?.7:0);
-      g.insertAdjacentHTML("afterbegin",`<path d="${d}" fill="var(--paper)" fill-opacity="${n?0:.0}"/>`);
-      g.classList.add("mp"); if(!n) g.classList.add("empty");
-      g.setAttribute("role","button"); g.setAttribute("tabindex","0");
-      g.setAttribute("aria-label",`${m}월, 기억 ${n}개`);
-      const cx=cc*PS+PS/2, cy=rr*PS+PS/2;
-      g.insertAdjacentHTML("beforeend",
-        `<text class="m" x="${cx}" y="${cy+4}" text-anchor="middle">${m}월</text>`+
-        `<text class="n" x="${cx}" y="${cy+26}" text-anchor="middle">${n?n+"개":""}</text>`);
-      g.dataset.m=m; g.dataset.n=n;
-      g.addEventListener("click",()=>pickMonth(m));
-      g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); pickMonth(m);} });
-      order.push(g);
-    }
-    order.forEach(g=>svg.appendChild(g));
-    const some=list.filter(e=>!e.m).length;
-    const sb=$("someday"); sb.hidden=!some; sb.textContent=`몇 월인지 모르는 기억 ${some}개`;
-    sb.onclick=()=>pickMonth(0);
-  }
-  function paintMonths(){
-    const list=inYear(selY);
-    $("puzzle").querySelectorAll(".mp").forEach(g=>{
-      const m=+g.dataset.m, on=m===selM;
-      g.classList.toggle("on", on);
-      if(on) g.parentNode.appendChild(g); // 선택한 조각이 위로
-      const hit=list.filter(e=>e.m===m&&matches(e)).length;
-      g.classList.toggle("dim", query!=="" && !hit);
-      g.setAttribute("aria-pressed",String(on));
-      if(!g.classList.contains("empty")) g.querySelector(".fill").setAttribute("fill-opacity", on?.8:.55);
-    });
-    $("someday").setAttribute("aria-pressed", String(selM===0));
-  }
-
-  /* ---------- 쪽지 ---------- */
   function hl(s){
     const safe=esc(s); if(!query) return safe;
     const q=esc(query).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
     return safe.replace(new RegExp(q,"gi"),m=>`<mark>${m}</mark>`);
   }
-  function card(e, jump){
-    const c=col(e.m+yEls[e.y]?.i||0);
-    return `<article class="note${jump?" jump":""}" style="--c:${c}" data-y="${e.y}" data-m="${e.m}">
-      <div class="d">${esc(fmt(e))}</div>
-      <h3>${hl(e.title)}</h3>
-      <p>${hl(e.text)}</p>
+
+  function renderStory(){
+    const box=$("story");
+    if(sel===null){
+      const shown=EP.filter(visible).length;
+      box.innerHTML = EP.length
+        ? `<p class="legend">${query||era?`조건에 맞는 별 <b style="color:var(--gold)">${shown}개</b>가 빛나고 있어요. 별을 눌러 보세요.`:"별을 눌러 보세요. 별 하나에 썰 하나가 들어 있어요."}</p>`
+        : `<p class="legend">아직 뜬 별이 없어요. episodes.js에 첫 썰을 적으면 BB 별자리의 첫 별이 떠요.</p>`;
+      return;
+    }
+    const e=EP[sel], c=eraColor(e.era);
+    box.innerHTML=`<span class="era" style="--c:${c}">${esc(e.era)}${e.bright?" ✦ 전설의 썰":""}</span>
+      <h2>${hl(e.title)}</h2><p>${hl(e.text)}</p>
       ${e.who.length?`<div class="who">${e.who.map(w=>`<button type="button" data-who="${esc(w)}">${hl(w)}</button>`).join("")}</div>`:""}
-    </article>`;
+      <div class="meta"><button type="button" id="prev" ${sel===0?"disabled":""}>◀ 이전 별</button>
+        <span>${sel+1}번째 별${e.bb?" (BB 별자리)":""}</span>
+        <button type="button" id="next" ${sel===EP.length-1?"disabled":""}>다음 별 ▶</button></div>`;
+    $("prev").onclick=()=>select(sel-1);
+    $("next").onclick=()=>select(sel+1);
   }
-  function renderNotes(){
-    const box=$("notes");
-    if(query){
-      const res=EP.filter(matches);
-      box.innerHTML=`<h2>‘${esc(query)}’ 찾기</h2><p class="meta">${res.length?`${res.length}개의 기억이 나왔어요. 누르면 그 달의 퍼즐로 이동해요.`:"맞는 기억이 없어요. 이름 한 글자만 적어 봐도 돼요."}</p>`+
-        res.map(e=>card(e,true)).join("");
-      return;
-    }
-    const list=inYear(selY).filter(e=>e.m===selM);
-    const label=selM?`${selY}년 ${selM}월`:`${selY}년 언젠가`;
-    if(!list.length){
-      box.innerHTML=`<h2>${label}</h2><p class="empty-note">아직 비어 있는 조각이에요. <code>episodes.js</code>에 <code>date: "${selY}-${String(selM||1).padStart(2,"0")}"</code>로 적으면 여기에 채워져요.</p>`;
-      return;
-    }
-    box.innerHTML=`<h2>${label}</h2><p class="meta">기억 ${list.length}개</p>`+list.map(e=>card(e,false)).join("");
+  $("story").addEventListener("click",ev=>{ const w=ev.target.closest("[data-who]"); if(w) setQuery(w.dataset.who); });
+
+  function paintSky(){
+    const hits=[];
+    EP.forEach((e,idx)=>{
+      const v=visible(e);
+      starEls[idx].classList.toggle("dim", !v);
+      starEls[idx].classList.toggle("on", idx===sel);
+      if(v && query) hits.push(e);
+    });
+    $("findline").setAttribute("d", hits.length>1 ? "M"+hits.map(e=>e.x.toFixed(1)+" "+e.y.toFixed(1)).join(" L") : "");
   }
-  $("notes").addEventListener("click",ev=>{
-    const w=ev.target.closest("[data-who]");
-    if(w){ ev.stopPropagation(); setQuery(w.dataset.who); return; }
-    const n=ev.target.closest(".note.jump");
-    if(n){ pickYear(+n.dataset.y, +n.dataset.m); }
+
+  function renderEras(){
+    const box=$("eras"); box.innerHTML="";
+    const mk=(label,val,c,n)=>{
+      const b=document.createElement("button"); b.type="button";
+      b.setAttribute("aria-pressed",String(era===val));
+      b.innerHTML=(c?`<i style="--c:${c}"></i>`:"")+esc(label)+(n!==undefined?` <small>${n}</small>`:"");
+      b.onclick=()=>{ era=(era===val?null:val); if(val===null) era=null; sel=null; update(); };
+      box.appendChild(b);
+    };
+    mk("전체",null,null,EP.length);
+    ERAS.forEach(r=>mk(r,r,eraColor(r),EP.filter(e=>e.era===r).length));
+  }
+
+  function renderList(){
+    const box=$("list");
+    const groups=(era?[era]:ERAS).map(r=>[r,EP.filter(e=>e.era===r&&visible(e))]).filter(([,l])=>l.length);
+    if(!groups.length){ box.innerHTML=`<p class="empty">${query?"맞는 별이 없어요. 이름 한 글자만 적어 봐도 돼요.":"이 시기에는 아직 뜬 별이 없어요."}</p>`; return; }
+    box.innerHTML=groups.map(([r,l])=>`<div class="group" style="--c:${eraColor(r)}"><h3>${esc(r)}<small>별 ${l.length}개</small></h3>`+
+      l.map(e=>`<button type="button" class="item${e.i===sel?" on":""}" data-i="${e.i}"><b>${hl(e.title)}</b><span>${hl(e.who.join(", "))}</span></button>`).join("")+`</div>`).join("");
+  }
+  $("list").addEventListener("click",ev=>{
+    const it=ev.target.closest("[data-i]"); if(!it) return;
+    select(+it.dataset.i);
+    $("skyWrap").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
   });
 
-  /* ---------- 선택 ---------- */
-  function pickYear(y, m){
-    if(selY!==y){ selY=y; buildPuzzle(y); }
-    const list=inYear(y);
-    if(m===undefined){
-      const firstHit = list.find(matches);
-      m = firstHit ? firstHit.m : (list[0]?list[0].m:1);
-    }
-    const n=list.length;
-    $("yearTitle").textContent=`${y}년의 조각`;
-    $("yearHint").textContent= n ? `12조각 중 ${new Set(list.filter(e=>e.m).map(e=>e.m)).size}조각을 맞췄어요` : "아직 한 조각도 없어요";
-    const {x}=yEls[y]; const box=$("years");
-    box.scrollTo({left:x-box.clientWidth/2+S/2, behavior:"smooth"});
-    paintYears();
-    pickMonth(m);
+  function centerOn(e){
+    const w=$("skyWrap"), svg=$("sky");
+    if(w.scrollWidth<=w.clientWidth) return;
+    const px=e.x/W*svg.clientWidth;
+    w.scrollTo({left:px-w.clientWidth/2,behavior:reduce?"auto":"smooth"});
   }
-  function pickMonth(m){
-    selM=m;
-    paintMonths();
-    renderNotes();
+  function select(i){
+    if(i<0||i>=EP.length) return;
+    sel=i; centerOn(EP[i]); update();
   }
+  function update(){ paintSky(); renderStory(); renderEras(); renderList(); }
 
-  /* ---------- 검색 ---------- */
+  /* ---------- 찾기 ---------- */
   const qi=$("q");
-  function setQuery(v){ qi.value=v; onQuery(); qi.focus(); }
+  function setQuery(v){ qi.value=v; onQuery(); }
   function onQuery(){
-    query=qi.value.trim().toLowerCase();
-    $("clear").hidden=!query;
-    if(query && !inYear(selY).some(matches)){
-      const hit=[...EP].reverse().find(matches);
-      if(hit){ pickYear(hit.y, hit.m); return; }
-    }
-    paintYears(); paintMonths(); renderNotes();
+    query=qi.value.trim().toLowerCase(); $("clear").hidden=!query;
+    if(sel!==null && !visible(EP[sel])) sel=null;
+    update();
   }
   qi.addEventListener("input",onQuery);
-  $("clear").onclick=()=>setQuery("");
+  $("clear").onclick=()=>{ setQuery(""); qi.focus(); };
 
-  /* ---------- 시작: 가장 최근 기억이 있는 해 ---------- */
-  const last=[...EP].reverse().find(e=>e.y>=Y0&&e.y<=Y1);
-  pickYear(last?last.y:Y1, last?last.m:undefined);
+  /* ---------- 시작 ---------- */
+  update();
+  const w=$("skyWrap"); w.scrollLeft=(w.scrollWidth-w.clientWidth)/2;
 })();
 </script>
 </body>
