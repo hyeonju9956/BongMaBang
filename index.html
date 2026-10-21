@@ -3,375 +3,306 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>봉현마을방범대의 밤하늘</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+<title>봉현마을방범대</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --night:#0E1230; --night2:#1B2152; --ink:#F4EEDB; --soft:#9EA5D2; --line:rgba(244,238,219,.5);
-  --gold:#FFE08A; --moon:#F5E9C4; --moon2:#DCCB98;
-  --e0:#FF9A8A; --e1:#FFC07A; --e2:#FFE58A; --e3:#A6E59A; --e4:#8FCBFF; --e5:#C7AEFF; --e6:#FFA6CF;
+  --bg:#F5F3EE; --ink:#1E1D1B; --ink2:#55524C; --ink3:#97928A; --line:#E2DDD3;
+  --accent:#2E4372; --mark:#F1DFA3; --pill:#EBE7DE;
+  --sans:"Pretendard Variable","Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --serif:"Noto Serif KR","Nanum Myeongjo",serif;
 }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#141517; --ink:#ECE9E3; --ink2:#B4AFA6; --ink3:#7E7A73; --line:#2A2B2E; --accent:#A9BBF0; --mark:rgba(241,223,163,.28); --pill:#222326; }
+}
+:root[data-theme="dark"]{ --bg:#141517; --ink:#ECE9E3; --ink2:#B4AFA6; --ink3:#7E7A73; --line:#2A2B2E; --accent:#A9BBF0; --mark:rgba(241,223,163,.28); --pill:#222326; }
 *{box-sizing:border-box;margin:0;padding:0}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--night)}
-body{
-  background:radial-gradient(120% 80% at 70% 0%, var(--night2), var(--night) 60%) fixed, var(--night);
-  color:var(--ink); min-height:100vh;
-  font-family:"Gaegu","Apple SD Gothic Neo","Malgun Gothic",sans-serif; font-size:19px; line-height:1.55; word-break:keep-all;
-}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.75;word-break:keep-all;-webkit-font-smoothing:antialiased}
 button,input{font:inherit;color:inherit}
 button{background:none;border:0;cursor:pointer}
-:focus-visible{outline:2px dashed var(--gold);outline-offset:3px}
-.wrap{max-width:1180px;margin:0 auto;padding:30px 20px 70px}
-.jua{font-family:"Jua","Gaegu",sans-serif;font-weight:400}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
 
-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 30px}
-h1{font-family:"Jua",sans-serif;font-weight:400;font-size:clamp(32px,5.4vw,52px);line-height:1.1}
-.since{display:block;font-size:16px;letter-spacing:3px;color:var(--gold);margin-bottom:6px;font-family:"Jua",sans-serif}
-.progress{font-size:19px;color:var(--soft);max-width:30em}
-.progress b{color:var(--gold);font-weight:700}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px 56px;align-items:center;padding:72px 0 56px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:13px;letter-spacing:.24em;color:var(--ink3);font-weight:600}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(38px,5.6vw,60px);line-height:1.15;letter-spacing:-.02em;margin:14px 0 20px}
+.lede{font-size:18px;color:var(--ink2);max-width:24em}
+.lede b{color:var(--ink);font-weight:600}
+#sky{width:100%;height:auto;display:block;overflow:visible}
+.ghost{fill:none;stroke:var(--ink3);stroke-width:.8;opacity:.35}
+.cline{fill:none;stroke:var(--ink);stroke-width:1;opacity:.5;stroke-linejoin:round}
+.st{cursor:pointer}
+.st .dot{fill:var(--ink)}
+.st.free .dot,.st.legend .dot{fill:var(--accent)}
+.st .halo{fill:var(--accent);opacity:0;transition:opacity .2s}
+.st:hover .halo,.st.on .halo,.st:focus-visible .halo{opacity:.22}
+.st:focus{outline:none}
+.st.dim{opacity:.13}
+.st.hit .halo{opacity:.18}
+.caption{min-height:26px;font-size:14px;color:var(--ink3);margin-top:10px;text-align:right}
+.caption b{color:var(--ink);font-weight:600}
 
-/* ---- 하늘 ---- */
-.sky{margin:18px -20px 0;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.sky::-webkit-scrollbar{display:none}
-#sky{display:block;width:100%;min-width:820px;height:auto}
-.bgstar{fill:#fff}
-.bbdot{fill:var(--ink);opacity:.45}
-.bbghost{fill:none;stroke:var(--ink);stroke-width:1;stroke-dasharray:2 7;stroke-linecap:round;opacity:.22}
-.bbline{stroke:var(--line);stroke-width:1.2;fill:none;stroke-linecap:round}
-.star{cursor:pointer}
-.star .core{transform-box:fill-box;transform-origin:center}
-.star.dim{opacity:.16}
-.star.on .ring{opacity:1}
-.ring{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-dasharray:3 3;opacity:0}
-.star:focus{outline:none}
-.star:focus-visible .ring{opacity:1}
-.newest .core{animation:pulse 2.6s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.35)}}
-.born{opacity:0;animation:born .6s ease-out forwards;animation-delay:var(--d)}
-@keyframes born{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
-.born{transform-box:fill-box;transform-origin:center}
-.findline{fill:none;stroke:var(--gold);stroke-width:1.6;stroke-dasharray:2 6;stroke-linecap:round}
-.label{font-family:"Gaegu",sans-serif;fill:var(--soft);font-size:17px}
-.name{font-family:"Gaegu",sans-serif;fill:var(--ink);font-size:16px;cursor:pointer}
-.name:hover{fill:var(--gold)}
-.dragon{stroke:var(--soft);stroke-width:1;fill:none;stroke-dasharray:1 5;stroke-linecap:round;opacity:.8}
-
-/* ---- 별 이야기 ---- */
-.story{margin:6px auto 0;max-width:720px;min-height:150px;text-align:center;padding:10px 6px 0}
-.story .era{display:inline-block;font-size:16px;padding:1px 12px;border-radius:999px;border:1.5px solid var(--c);color:var(--c)}
-.story h2{font-family:"Jua",sans-serif;font-weight:400;font-size:30px;line-height:1.25;margin:8px 0 6px}
-.story p{font-size:20px;line-height:1.6;max-width:34em;margin:0 auto}
-.story .meta{font-size:16px;color:var(--soft);margin-top:10px;display:flex;justify-content:center;align-items:center;gap:18px}
-.story .meta button{padding:2px 8px;color:var(--soft)}
-.story .meta button:hover{color:var(--ink)}
-.story .legend{font-size:17px;color:var(--soft)}
-.who{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 12px;margin-top:8px;font-size:17px}
-.who button{color:var(--soft);border-bottom:1.5px dashed currentColor;line-height:1.25}
-.who button:hover{color:var(--gold)}
-mark{background:none;color:var(--gold);border-bottom:2px solid var(--gold)}
-
-/* ---- 찾기 & 시기 ---- */
-.controls{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;justify-content:space-between;border-top:1.5px dashed rgba(158,165,210,.35);padding-top:26px}
-.eras{display:flex;flex-wrap:wrap;gap:8px}
-.eras button{padding:3px 14px;border-radius:999px;border:1.5px solid rgba(158,165,210,.5);font-size:18px;color:var(--soft);display:flex;align-items:center;gap:6px}
-.eras button i{width:9px;height:9px;border-radius:50%;background:var(--c);display:block}
-.eras button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:rgba(244,238,219,.08)}
-.find{position:relative;flex:1 1 260px;max-width:360px}
-.find input{width:100%;padding:7px 38px 7px 16px;font-size:19px;background:rgba(14,18,48,.6);border:1.5px solid rgba(158,165,210,.6);border-radius:999px;outline:none}
-.find input:focus{border-color:var(--gold)}
-.find input::placeholder{color:var(--soft)}
+.layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:64px;padding:48px 0 100px}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 28px);align-self:start;max-height:calc(100vh - 56px);overflow:auto;padding-bottom:20px}
+.find{position:relative;margin-bottom:26px}
+.find input{width:100%;padding:10px 34px 10px 14px;font-size:15px;background:transparent;border:1px solid var(--line);border-radius:10px;outline:none}
+.find input:focus{border-color:var(--accent)}
+.find input::placeholder{color:var(--ink3)}
 .find input::-webkit-search-cancel-button{display:none}
-.find .x{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--soft);padding:2px 6px}
+.find .x{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:26px;height:26px;color:var(--ink3);font-size:18px}
 .find .x[hidden]{display:none}
+.toc-label{font-size:12px;letter-spacing:.18em;color:var(--ink3);font-weight:600;margin-bottom:8px}
+.toc{list-style:none}
+.toc a{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:5px 0;color:var(--ink2);text-decoration:none;font-size:15px}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--ink);font-weight:600}
+.toc a small{color:var(--ink3);font-variant-numeric:tabular-nums;font-weight:400}
+.toc li.zero a{opacity:.35;pointer-events:none}
 
-.list{margin-top:26px;columns:2 340px;column-gap:28px}
-.group{break-inside:avoid;margin-bottom:22px}
-.group h3{font-family:"Jua",sans-serif;font-weight:400;font-size:22px;color:var(--c);margin-bottom:6px;display:flex;align-items:baseline;gap:8px}
-.group h3 small{font-family:"Gaegu",sans-serif;font-size:16px;color:var(--soft)}
-.item{display:block;width:100%;text-align:left;padding:8px 0 8px 18px;position:relative;border-radius:6px}
-.item::before{content:"✦";position:absolute;left:0;top:9px;color:var(--c);font-size:13px}
-.item b{font-weight:700;font-size:19px}
-.item span{display:block;font-size:17px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item:hover b,.item.on b{color:var(--gold)}
-.empty{color:var(--soft);font-size:19px}
+.result{font-size:15px;color:var(--ink2);margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.result[hidden]{display:none}
+.chapter{margin-bottom:72px}
+.chapter[hidden]{display:none}
+.ch-head{display:flex;align-items:baseline;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--ink);max-width:700px}
+.ch-head h2{font-family:var(--serif);font-weight:700;font-size:32px;line-height:1.2;letter-spacing:-.01em}
+.ch-head span{font-size:14px;color:var(--ink3)}
+.story{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 12px;padding:26px 0;border-bottom:1px solid var(--line);max-width:700px}
+.story[hidden]{display:none}
+.layout>*,.story .body{min-width:0}
+.no{font-size:13px;color:var(--ink3);font-variant-numeric:tabular-nums;padding-top:5px}
+.story h3{font-family:var(--serif);font-weight:700;font-size:21px;line-height:1.45;letter-spacing:-.01em;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.tag{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--accent);border:1px solid currentColor;border-radius:999px;padding:1px 8px}
+.who{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px}
+.who button{font-size:13px;padding:2px 10px;border-radius:999px;background:var(--pill);color:var(--ink2)}
+.who button:hover{color:var(--ink)}
+.who button.unk{background:transparent;border:1px dashed var(--ink3);color:var(--ink3)}
+.story p{color:var(--ink2);max-width:62ch}
+.story.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%{background:var(--mark)}100%{background:transparent}}
+mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
+.empty{color:var(--ink3)}
+.err{margin:24px 0 0;padding:16px 18px;border:1px solid #C0392B;border-radius:10px;font-size:15px}
+.err[hidden]{display:none}
+.err code{font-family:ui-monospace,Menlo,monospace;font-size:14px;background:var(--pill);padding:1px 6px;border-radius:4px}
+.foot{font-size:13px;color:var(--ink3);text-align:center;padding:0 0 48px}
 
-@media (prefers-reduced-motion:reduce){
-  .newest .core,.born{animation:none;opacity:1}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;padding:48px 0 32px}
+  .caption{text-align:left}
+  .layout{grid-template-columns:1fr;gap:0;padding-top:0}
+  .side{top:0;max-height:none;overflow:visible;background:var(--bg);margin:0 -28px;padding:12px 28px 10px;padding-top:calc(env(safe-area-inset-top,0px) + 12px);z-index:5;border-bottom:1px solid var(--line)}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+  .find{margin-bottom:10px}
+  .toc-label{display:none}
+  .toc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{padding:4px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;font-size:14px}
+  .toc a.on{border-color:var(--ink)}
+  .toc a small{display:none}
+  main{padding-top:28px}
+  .story{grid-template-columns:minmax(0,1fr)}
+  .no{padding:0 0 2px}
 }
+@media (prefers-reduced-motion:reduce){ .story.flash{animation:none} }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
+  <header class="hero">
     <div>
-      <span class="since" id="since"></span>
-      <h1 id="title"></h1>
+      <p class="eyebrow" id="since">SINCE 2015</p>
+      <h1 id="title">봉현마을방범대</h1>
+      <p class="lede" id="lede"></p>
     </div>
-    <p class="progress" id="progress"></p>
+    <div>
+      <svg id="sky" viewBox="0 0 640 470" role="img" aria-label="이야기 하나가 별 하나인 BB 별자리">
+        <g id="ghost"></g><g id="clines"></g><g id="stars"></g>
+      </svg>
+      <p class="caption" id="caption" aria-live="polite"></p>
+    </div>
   </header>
 
-  <div class="sky" id="skyWrap">
-    <svg id="sky" viewBox="0 0 1200 700" role="img" aria-label="썰이 별이 되어 떠 있는 밤하늘">
-      <defs>
-        <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4"/></filter>
-        <radialGradient id="moonShade" cx="38%" cy="35%" r="70%">
-          <stop offset="0" stop-color="#FFF7DA"/><stop offset="1" stop-color="#E7D7A6"/>
-        </radialGradient>
-        <filter id="moonGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="18"/></filter>
-      </defs>
-      <g id="bg"></g>
-      <g id="dragon"></g>
-      <g id="moon"></g>
-      <g id="bbDots"></g>
-      <g id="bbLines"></g>
-      <path id="findline" class="findline" d=""/>
-      <g id="stars"></g>
-    </svg>
+  <div class="err" id="err" hidden></div>
+
+  <div class="layout">
+    <aside class="side">
+      <div class="find">
+        <input id="q" type="search" placeholder="친구 이름, 장소, 키워드" autocomplete="off" aria-label="이야기 찾기">
+        <button class="x" id="clear" type="button" aria-label="검색어 지우기" hidden>×</button>
+      </div>
+      <p class="toc-label">시기</p>
+      <ul class="toc" id="toc"></ul>
+    </aside>
+    <main>
+      <p class="result" id="result" hidden></p>
+      <div id="book"></div>
+    </main>
   </div>
-
-  <section class="story" id="story" aria-live="polite"></section>
-
-  <section class="controls">
-    <div class="eras" id="eras" role="group" aria-label="시기별로 보기"></div>
-    <div class="find">
-      <input id="q" type="search" placeholder="친구 이름이나 키워드로 별 찾기" autocomplete="off" aria-label="별 찾기">
-      <button class="x" id="clear" type="button" aria-label="검색어 지우기" hidden>×</button>
-    </div>
-  </section>
-
-  <section class="list" id="list"></section>
+  <p class="foot" id="foot"></p>
 </div>
 
+<script>
+window.__epErr=null;
+window.addEventListener("error",function(e){
+  if(e.filename && e.filename.indexOf("episodes.js")>-1) window.__epErr={line:e.lineno};
+},true);
+</script>
 <script src="episodes.js"></script>
 <script>
 (function(){
   const BB = [[[0.334,0.045],[0.226,0.069],[0.13,0.12],[0.063,0.206],[0.08,0.31],[0.128,0.397],[0.038,0.461],[0.001,0.561],[0.042,0.66],[0.125,0.736],[0.226,0.774],[0.338,0.77],[0.445,0.743],[0.471,0.653],[0.499,0.547],[0.523,0.442],[0.548,0.335],[0.569,0.226],[0.532,0.127],[0.446,0.057]],[[0.793,0.0],[0.707,0.013],[0.63,0.042],[0.628,0.127],[0.611,0.208],[0.593,0.292],[0.577,0.376],[0.569,0.462],[0.62,0.531],[0.694,0.567],[0.783,0.564],[0.862,0.538],[0.931,0.487],[0.964,0.411],[0.93,0.337],[0.927,0.278],[0.987,0.217],[0.994,0.136],[0.946,0.064],[0.876,0.017]],[[0.378,0.185],[0.404,0.277],[0.338,0.354],[0.224,0.321],[0.262,0.219]],[[0.319,0.464],[0.337,0.558],[0.277,0.656],[0.16,0.614],[0.2,0.503]],[[0.777,0.095],[0.872,0.121],[0.853,0.207],[0.762,0.243],[0.738,0.179]],[[0.752,0.328],[0.837,0.359],[0.8,0.436],[0.711,0.461],[0.697,0.385]]];
-  const SQ = Object.assign({name:"우리 방범대", since:2015, eras:[], rabbits:[], dragons:[]}, window.SQUAD||{});
+  const SQ = Object.assign({name:"우리 방범대", since:2015, eras:[]}, window.SQUAD||{});
   const NS="http://www.w3.org/2000/svg";
   const $ = id => document.getElementById(id);
   const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const PAL = ["--e0","--e1","--e2","--e3","--e4","--e5","--e6"].map(v=>`var(${v})`);
-  function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
 
-  /* ---------- 데이터 ---------- */
+  if(window.__epErr || !window.EPISODES){
+    const el=$("err"); el.hidden=false;
+    el.innerHTML = window.__epErr && window.__epErr.line
+      ? `<b>이야기를 불러오지 못했어요.</b> <code>episodes.js</code>의 <b>${window.__epErr.line}번째 줄</b> 근처에 문법 오류가 있어요. 따옴표(")를 닫았는지, 항목 사이 쉼표(,)가 있는지 확인해 주세요.`
+      : `<b>이야기를 불러오지 못했어요.</b> <code>episodes.js</code>가 index.html과 같은 곳에 있는지, 따옴표(")와 쉼표(,)가 빠진 곳이 없는지 확인해 주세요.`;
+  }
+
   const ERAS=[...(SQ.eras||[])];
   const EP=(window.EPISODES||[]).map((e,i)=>{
     const who=(Array.isArray(e.who)?e.who:String(e.who||"").split(/[,，、]/)).map(s=>s.trim()).filter(Boolean);
-    const era=String(e.era||"언젠가").trim();
+    const era=String(e.era||"기타").trim();
     if(!ERAS.includes(era)) ERAS.push(era);
-    return {...e, i, who, era, _hay:[e.title,e.text,who.join(" "),era].join(" ").toLowerCase()};
-  });
-  const eraColor = era => PAL[ERAS.indexOf(era)%PAL.length];
-
-  /* ---------- 제목 ---------- */
-  $("since").textContent = "SINCE "+SQ.since;
-  $("title").textContent = SQ.name+"의 밤하늘";
-  document.title = SQ.name+"의 밤하늘";
-  const BBN = BB.reduce((a,g)=>a+g.length,0);
-  const left = Math.max(0,BBN-EP.length);
-  $("progress").innerHTML = left
-    ? `썰 하나가 별 하나. 지금까지 별 <b>${EP.length}개</b>를 띄웠고, BB 별자리 완성까지 <b>${left}개</b> 남았어요.`
-    : `BB 별자리를 다 채웠어요! 지금은 별 <b>${EP.length}개</b>로 하늘을 넓혀 가는 중.`;
-
-  /* ---------- 배경 별 ---------- */
-  const W=1200,H=700, r0=rng(99);
-  let bg="";
-  for(let k=0;k<170;k++){
-    const x=r0()*W, y=r0()*H, r=r0()<.9?r0()*0.9+.3:r0()*1.4+.8;
-    bg+=`<circle class="bgstar" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" opacity="${(.15+r0()*.5).toFixed(2)}"/>`;
-  }
-  $("bg").innerHTML=bg;
-
-  /* ---------- 달과 달토끼 ---------- */
-  const MX=1035, MY=128, MR=70;
-  $("moon").innerHTML=`
-    <circle cx="${MX}" cy="${MY}" r="${MR+10}" fill="#FFF1C2" opacity=".35" filter="url(#moonGlow)"/>
-    <circle cx="${MX}" cy="${MY}" r="${MR}" fill="url(#moonShade)"/>
-    <circle cx="${MX-34}" cy="${MY-30}" r="9" fill="#E3D19C" opacity=".6"/>
-    <circle cx="${MX+30}" cy="${MY+38}" r="6" fill="#E3D19C" opacity=".6"/>
-    <g fill="#CDB97F" opacity=".95">
-      <ellipse cx="${MX-6}" cy="${MY+20}" rx="22" ry="17"/>
-      <circle cx="${MX+16}" cy="${MY+2}" r="11"/>
-      <ellipse cx="${MX+11}" cy="${MY-18}" rx="4.2" ry="14" transform="rotate(-14 ${MX+11} ${MY-18})"/>
-      <ellipse cx="${MX+21}" cy="${MY-16}" rx="4.2" ry="13" transform="rotate(16 ${MX+21} ${MY-16})"/>
-      <circle cx="${MX-28}" cy="${MY+24}" r="6"/>
-      <rect x="${MX+28}" y="${MY+22}" width="16" height="14" rx="3"/>
-      <rect x="${MX+34}" y="${MY+4}" width="3" height="22" rx="1.5" transform="rotate(20 ${MX+35} ${MY+20})"/>
-    </g>
-    <circle cx="${MX+20}" cy="${MY}" r="1.6" fill="#8E7C4E"/>`;
-  const mg=$("moon");
-  const ml=document.createElementNS(NS,"text"); ml.setAttribute("class","label"); ml.setAttribute("x",MX); ml.setAttribute("y",MY+MR+30); ml.setAttribute("text-anchor","middle");
-  ml.textContent="토끼띠 대원들이 사는 달"; mg.appendChild(ml);
-  // 토끼띠 이름
-  const rab=SQ.rabbits||[]; const rw=rab.map(n=>n.length*15+16); const rtot=rw.reduce((a,b)=>a+b,0);
-  let rx=MX-rtot/2;
-  rab.forEach((n,k)=>{ const t=document.createElementNS(NS,"text"); t.setAttribute("class","name"); t.setAttribute("x",rx+rw[k]/2); t.setAttribute("y",MY+MR+54);
-    t.setAttribute("text-anchor","middle"); t.textContent=n; t.addEventListener("click",()=>setQuery(n)); mg.appendChild(t); rx+=rw[k]; });
-
-  /* ---------- 용자리 ---------- */
-  const DP=[[70,650],[120,612],[104,560],[150,520],[214,532],[246,486],[214,440],[232,398],[262,384]];
-  let dpath="M"+DP.map(p=>p.join(" ")).join(" L");
-  let dsvg=`<path class="dragon" d="${dpath}"/>`;
-  DP.forEach(p=>dsvg+=`<circle cx="${p[0]}" cy="${p[1]}" r="1.8" fill="var(--soft)"/>`);
-  dsvg+=`<text class="label" x="150" y="672">용자리</text>`;
-  $("dragon").innerHTML=dsvg;
-  const dIdx=[8,4,0]; // 머리, 몸통, 꼬리
-  (SQ.dragons||[]).slice(0,3).forEach((n,k)=>{
-    const [x,y]=DP[dIdx[k]];
-    const g=document.createElementNS(NS,"g");
-    g.innerHTML=`<circle cx="${x}" cy="${y}" r="7" fill="var(--e4)" opacity=".45" filter="url(#glow)"/><circle cx="${x}" cy="${y}" r="3.2" fill="#DDEBFF"/>`+
-      `<text class="name" x="${x+(k===1?14:12)}" y="${y+(k===2?-10:20)}">${esc(n)}</text>`;
-    g.style.cursor="pointer"; g.addEventListener("click",()=>setQuery(n));
-    $("dragon").appendChild(g);
+    return {...e, i, n:i+1, who, era, title:String(e.title||""), text:String(e.text||""),
+      _hay:[e.title,e.text,who.join(" "),era].join(" ").toLowerCase()};
   });
 
-  /* ---------- BB 별자리 위치 ---------- */
-  const BX=405, BY=125, BW=470;
-  const bbPts=[]; BB.forEach((grp,gi)=>grp.forEach((p,k)=>bbPts.push({x:BX+p[0]*BW, y:BY+p[1]*BW, g:gi, k})));
-  $("bbDots").innerHTML=bbPts.map(p=>`<circle class="bbdot" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.2"/>`).join("");
-  { let gp="", o=0; BB.forEach(grp=>{ gp+="M"+grp.map((_,k)=>bbPts[o+k].x.toFixed(1)+" "+bbPts[o+k].y.toFixed(1)).join(" L")+" Z "; o+=grp.length; });
-    $("bbDots").insertAdjacentHTML("afterbegin",`<path class="bbghost" d="${gp}"/>`); }
-  // 별 자리 정하기
+  $("since").textContent="SINCE "+SQ.since;
+  $("title").textContent=SQ.name; document.title=SQ.name;
+  const BBN=BB.reduce((a,g)=>a+g.length,0);
+  const left=Math.max(0,BBN-EP.length);
+  $("lede").innerHTML = `${SQ.since}년부터 함께 쌓아 온 이야기 <b>${EP.length}개</b>. 이야기 하나가 별 하나가 되어 BB 별자리를 채워요.`+
+    (left?` 완성까지 별 ${left}개.`:` 별자리는 완성됐고, 그 뒤의 이야기는 주변 하늘에 떠 있어요.`);
+  $("foot").textContent=`${SQ.name}, ${SQ.since}년부터`;
+
+  /* ---------- 별자리 ---------- */
+  const VW=640, VH=470, BX=70, BY=40, BW=500;
+  const pts=[]; BB.forEach(g=>g.forEach(p=>pts.push({x:BX+p[0]*BW,y:BY+p[1]*BW})));
+  let gp="", o=0;
+  BB.forEach(g=>{ gp+="M"+g.map((_,k)=>pts[o+k].x.toFixed(1)+" "+pts[o+k].y.toFixed(1)).join(" L")+" Z "; o+=g.length; });
+  $("ghost").innerHTML=`<path class="ghost" d="${gp}" stroke-dasharray="1 5" stroke-linecap="round"/>`;
+  let cl=""; o=0;
+  BB.forEach(g=>{ const n=g.length;
+    for(let k=0;k<n;k++){ const a=o+k,b=o+(k+1)%n; if(a<EP.length&&b<EP.length) cl+=`M${pts[a].x.toFixed(1)} ${pts[a].y.toFixed(1)} L${pts[b].x.toFixed(1)} ${pts[b].y.toFixed(1)} `; }
+    o+=n; });
+  $("clines").innerHTML=`<path class="cline" d="${cl}"/>`;
+  function rng(seed){ return ()=>{ seed|=0; seed=seed+0x6D2B79F5|0; let t=Math.imul(seed^seed>>>15,1|seed); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
   const rf=rng(2015), placed=[];
-  const blocked=(x,y)=>(x>BX-40&&x<BX+BW+40&&y>BY-40&&y<BY+BW*.78+60)||
-    (Math.hypot(x-MX,y-MY)<MR+90)||(x<300&&y>360)||placed.some(p=>Math.hypot(p.x-x,p.y-y)<36);
+  const inBB=(x,y)=>x>BX-6&&x<BX+BW+6&&y>BY-6&&y<BY+BW*.78+6;
   EP.forEach(e=>{
-    if(e.i<bbPts.length){ e.x=bbPts[e.i].x; e.y=bbPts[e.i].y; e.bb=true; return; }
-    let x,y,t=0; do{ x=40+rf()*(W-80); y=36+rf()*(H-72); t++; }while(blocked(x,y)&&t<400);
-    e.x=x; e.y=y; placed.push(e);
+    if(e.i<pts.length){ e.x=pts[e.i].x; e.y=pts[e.i].y; e.free=false; return; }
+    let x,y,t=0; do{ x=8+rf()*(VW-16); y=8+rf()*(VH-16); t++; }
+      while((inBB(x,y)||placed.some(p=>Math.hypot(p.x-x,p.y-y)<26))&&t<500);
+    e.x=x; e.y=y; e.free=true; placed.push(e);
   });
-  // BB 선: 켜진 별끼리 잇기
-  let lines="", off=0;
-  BB.forEach(grp=>{
-    const n=grp.length;
-    for(let k=0;k<n;k++){
-      const a=off+k, b=off+(k+1)%n;
-      if(a<EP.length && b<EP.length) lines+=`M${bbPts[a].x.toFixed(1)} ${bbPts[a].y.toFixed(1)} L${bbPts[b].x.toFixed(1)} ${bbPts[b].y.toFixed(1)} `;
-    }
-    off+=n;
-  });
-  $("bbLines").innerHTML=`<path class="bbline" d="${lines}"/>`;
-
-  /* ---------- 별 그리기 ---------- */
-  const SPARK="M0 -9 C1.2 -2.4 2.4 -1.2 9 0 C2.4 1.2 1.2 2.4 0 9 C-1.2 2.4 -2.4 1.2 -9 0 C-2.4 -1.2 -1.2 -2.4 0 -9Z";
-  const starEls=[];
-  EP.forEach((e,idx)=>{
-    const c=eraColor(e.era), s=e.bright?1.45:1;
+  const starEl=[];
+  EP.forEach(e=>{
     const g=document.createElementNS(NS,"g");
-    g.setAttribute("class","star"+(idx===EP.length-1?" newest":""));
+    g.setAttribute("class","st"+(e.free?" free":"")+(e.bright?" legend":""));
     g.setAttribute("transform",`translate(${e.x.toFixed(1)} ${e.y.toFixed(1)})`);
-    g.setAttribute("role","button"); g.setAttribute("tabindex","0");
-    g.setAttribute("aria-label",`${idx+1}번째 별, ${e.era}, ${e.title}`);
-    g.innerHTML=`<g class="${reduce?"":"born"}" style="--d:${(idx*55)}ms">
-        <circle r="${11*s}" fill="${c}" opacity=".45" filter="url(#glow)"/>
-        <path class="core" d="${SPARK}" transform="scale(${(.82*s).toFixed(2)})" fill="${c}"/>
-        <circle r="${1.8*s}" fill="#fff"/>
-        <circle class="ring" r="${14*s}"/>
-        <circle r="16" fill="transparent"/>
-      </g>`;
-    g.addEventListener("click",()=>select(idx));
-    g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();select(idx);} });
-    $("stars").appendChild(g); starEls.push(g);
+    g.setAttribute("role","link"); g.setAttribute("tabindex","0");
+    g.setAttribute("aria-label",`${e.n}번, ${e.era}, ${e.title}`);
+    const r=e.bright?4.2:(e.free?2.6:3);
+    g.innerHTML=`<circle class="halo" r="12"/><circle class="dot" r="${r}"/><circle r="12" fill="transparent"/>`;
+    g.addEventListener("mouseenter",()=>caption(e));
+    g.addEventListener("focus",()=>caption(e));
+    g.addEventListener("mouseleave",()=>caption(null));
+    g.addEventListener("click",()=>go(e));
+    g.addEventListener("keydown",ev=>{ if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go(e);} });
+    $("stars").appendChild(g); starEl.push(g);
   });
+  function caption(e){
+    $("caption").innerHTML = e ? `${e.n}번 별, <b>${esc(e.title)}</b> (${esc(e.era)})` : (EP.length?"별을 누르면 그 이야기로 이동해요":"");
+  }
+  caption(null);
 
-  /* ---------- 상태 ---------- */
-  let sel=null, era=null, query="";
-  const visible = e => (!era||e.era===era) && (!query||e._hay.includes(query));
-
+  /* ---------- 본문 ---------- */
+  let query="";
+  const match = e => !query || e._hay.includes(query);
+  const slug = s => "era-"+ERAS.indexOf(s);
   function hl(s){
     const safe=esc(s); if(!query) return safe;
     const q=esc(query).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
     return safe.replace(new RegExp(q,"gi"),m=>`<mark>${m}</mark>`);
   }
-
-  function renderStory(){
-    const box=$("story");
-    if(sel===null){
-      const shown=EP.filter(visible).length;
-      box.innerHTML = EP.length
-        ? `<p class="legend">${query||era?`조건에 맞는 별 <b style="color:var(--gold)">${shown}개</b>가 빛나고 있어요. 별을 눌러 보세요.`:"별을 눌러 보세요. 별 하나에 썰 하나가 들어 있어요."}</p>`
-        : `<p class="legend">아직 뜬 별이 없어요. episodes.js에 첫 썰을 적으면 BB 별자리의 첫 별이 떠요.</p>`;
-      return;
-    }
-    const e=EP[sel], c=eraColor(e.era);
-    box.innerHTML=`<span class="era" style="--c:${c}">${esc(e.era)}${e.bright?" ✦ 전설의 썰":""}</span>
-      <h2>${hl(e.title)}</h2><p>${hl(e.text)}</p>
-      ${e.who.length?`<div class="who">${e.who.map(w=>`<button type="button" data-who="${esc(w)}">${hl(w)}</button>`).join("")}</div>`:""}
-      <div class="meta"><button type="button" id="prev" ${sel===0?"disabled":""}>◀ 이전 별</button>
-        <span>${sel+1}번째 별${e.bb?" (BB 별자리)":""}</span>
-        <button type="button" id="next" ${sel===EP.length-1?"disabled":""}>다음 별 ▶</button></div>`;
-    $("prev").onclick=()=>select(sel-1);
-    $("next").onclick=()=>select(sel+1);
-  }
-  $("story").addEventListener("click",ev=>{ const w=ev.target.closest("[data-who]"); if(w) setQuery(w.dataset.who); });
-
-  function paintSky(){
-    const hits=[];
-    EP.forEach((e,idx)=>{
-      const v=visible(e);
-      starEls[idx].classList.toggle("dim", !v);
-      starEls[idx].classList.toggle("on", idx===sel);
-      if(v && query) hits.push(e);
+  const book=$("book");
+  const chapters=ERAS.map(era=>{
+    const list=EP.filter(e=>e.era===era);
+    const sec=document.createElement("section"); sec.className="chapter"; sec.id=slug(era);
+    sec.innerHTML=`<div class="ch-head"><h2>${esc(era)}</h2><span></span></div>`;
+    list.forEach(e=>{
+      const a=document.createElement("article"); a.className="story"; a.id="s"+e.n;
+      a.innerHTML=`<div class="no">${String(e.n).padStart(2,"0")}</div><div class="body"></div>`;
+      sec.appendChild(a); e._el=a;
     });
-    $("findline").setAttribute("d", hits.length>1 ? "M"+hits.map(e=>e.x.toFixed(1)+" "+e.y.toFixed(1)).join(" L") : "");
-  }
-
-  function renderEras(){
-    const box=$("eras"); box.innerHTML="";
-    const mk=(label,val,c,n)=>{
-      const b=document.createElement("button"); b.type="button";
-      b.setAttribute("aria-pressed",String(era===val));
-      b.innerHTML=(c?`<i style="--c:${c}"></i>`:"")+esc(label)+(n!==undefined?` <small>${n}</small>`:"");
-      b.onclick=()=>{ era=(era===val?null:val); if(val===null) era=null; sel=null; update(); };
-      box.appendChild(b);
-    };
-    mk("전체",null,null,EP.length);
-    ERAS.forEach(r=>mk(r,r,eraColor(r),EP.filter(e=>e.era===r).length));
-  }
-
-  function renderList(){
-    const box=$("list");
-    const groups=(era?[era]:ERAS).map(r=>[r,EP.filter(e=>e.era===r&&visible(e))]).filter(([,l])=>l.length);
-    if(!groups.length){ box.innerHTML=`<p class="empty">${query?"맞는 별이 없어요. 이름 한 글자만 적어 봐도 돼요.":"이 시기에는 아직 뜬 별이 없어요."}</p>`; return; }
-    box.innerHTML=groups.map(([r,l])=>`<div class="group" style="--c:${eraColor(r)}"><h3>${esc(r)}<small>별 ${l.length}개</small></h3>`+
-      l.map(e=>`<button type="button" class="item${e.i===sel?" on":""}" data-i="${e.i}"><b>${hl(e.title)}</b><span>${hl(e.who.join(", "))}</span></button>`).join("")+`</div>`).join("");
-  }
-  $("list").addEventListener("click",ev=>{
-    const it=ev.target.closest("[data-i]"); if(!it) return;
-    select(+it.dataset.i);
-    $("skyWrap").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+    book.appendChild(sec);
+    return {era,list,sec};
   });
-
-  function centerOn(e){
-    const w=$("skyWrap"), svg=$("sky");
-    if(w.scrollWidth<=w.clientWidth) return;
-    const px=e.x/W*svg.clientWidth;
-    w.scrollTo({left:px-w.clientWidth/2,behavior:reduce?"auto":"smooth"});
+  function paintStory(e){
+    e._el.querySelector(".body").innerHTML=
+      `<h3>${hl(e.title)}${e.bright?'<span class="tag">레전드</span>':""}</h3>`+
+      (e.who.length?`<div class="who">${e.who.map(w=>`<button type="button" class="${w==="불확실"?"unk":""}" data-who="${esc(w)}">${hl(w)}</button>`).join("")}</div>`:"")+
+      `<p>${hl(e.text)}</p>`;
   }
-  function select(i){
-    if(i<0||i>=EP.length) return;
-    sel=i; centerOn(EP[i]); update();
-  }
-  function update(){ paintSky(); renderStory(); renderEras(); renderList(); }
+  book.addEventListener("click",ev=>{ const b=ev.target.closest("[data-who]"); if(b){ setQuery(b.dataset.who); $("book").scrollIntoView({behavior:reduce?"auto":"smooth"}); } });
 
-  /* ---------- 찾기 ---------- */
-  const qi=$("q");
+  const toc=$("toc"), qi=$("q");
+  function render(){
+    let total=0;
+    toc.innerHTML="";
+    chapters.forEach(c=>{
+      const hits=c.list.filter(match);
+      total+=hits.length;
+      c.list.forEach(e=>{ const m=match(e); e._el.hidden=!m; if(m) paintStory(e); });
+      c.sec.hidden=!hits.length;
+      c.sec.querySelector(".ch-head span").textContent = query ? `${hits.length}개 찾음` : `이야기 ${c.list.length}개`;
+      const li=document.createElement("li"); if(!hits.length) li.className="zero";
+      li.innerHTML=`<a href="#${slug(c.era)}" data-era="${esc(c.era)}"><span>${esc(c.era)}</span><small>${hits.length}</small></a>`;
+      toc.appendChild(li);
+    });
+    EP.forEach((e,i)=>{ starEl[i].classList.toggle("dim", !!query && !match(e)); starEl[i].classList.toggle("hit", !!query && match(e)); });
+    const r=$("result"); r.hidden=!query;
+    if(query) r.innerHTML = total ? `‘${esc(qi.value.trim())}’ 이야기 <b>${total}개</b>` : `‘${esc(qi.value.trim())}’에 맞는 이야기가 없어요. 이름 한 글자만 적어 봐도 돼요.`;
+    if(!EP.length && !window.__epErr) book.innerHTML='<p class="empty">아직 이야기가 없어요. episodes.js에 첫 이야기를 적어 주세요.</p>';
+    spy();
+  }
+
+  function go(e){
+    if(query && !match(e)) setQuery("");
+    starEl.forEach(s=>s.classList.remove("on")); starEl[e.i].classList.add("on");
+    e._el.scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});
+    e._el.classList.remove("flash"); void e._el.offsetWidth; e._el.classList.add("flash");
+  }
+  function spy(){
+    const y=window.innerHeight*0.3; let cur=null;
+    chapters.forEach(c=>{ if(!c.sec.hidden && c.sec.getBoundingClientRect().top<y) cur=c.era; });
+    toc.querySelectorAll("a").forEach(a=>{
+      const on=a.dataset.era===cur; a.classList.toggle("on",on);
+      if(on && toc.scrollWidth>toc.clientWidth){ toc.scrollLeft = a.offsetLeft - toc.clientWidth/2 + a.offsetWidth/2; }
+    });
+  }
+  let ticking=false;
+  addEventListener("scroll",()=>{ if(!ticking){ ticking=true; requestAnimationFrame(()=>{ spy(); ticking=false; }); } },{passive:true});
+
   function setQuery(v){ qi.value=v; onQuery(); }
-  function onQuery(){
-    query=qi.value.trim().toLowerCase(); $("clear").hidden=!query;
-    if(sel!==null && !visible(EP[sel])) sel=null;
-    update();
-  }
+  function onQuery(){ query=qi.value.trim().toLowerCase(); $("clear").hidden=!query; render(); }
   qi.addEventListener("input",onQuery);
   $("clear").onclick=()=>{ setQuery(""); qi.focus(); };
 
-  /* ---------- 시작 ---------- */
-  update();
-  const w=$("skyWrap"); w.scrollLeft=(w.scrollWidth-w.clientWidth)/2;
+  render();
+  if(/^#s\d+$/.test(location.hash)){ const e=EP[+location.hash.slice(2)-1]; if(e) setTimeout(()=>go(e),300); }
 })();
 </script>
 </body>
