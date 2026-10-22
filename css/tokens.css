@@ -1,0 +1,80 @@
+:root {
+  color-scheme: light dark;
+  --bg: #F5F3EE;
+  --ink: #1E1D1B;
+  --ink2: #55524C;
+  --ink3: #97928A;
+  --line: #E2DDD3;
+  --accent: #2E4372;
+  --mark: #F1DFA3;
+  --pill: #EBE7DE;
+  --sans: "Pretendard Variable", "Pretendard", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --serif: "Noto Serif KR", "Nanum Myeongjo", serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141517;
+    --ink: #ECE9E3;
+    --ink2: #B4AFA6;
+    --ink3: #7E7A73;
+    --line: #2A2B2E;
+    --accent: #A9BBF0;
+    --mark: rgba(241, 223, 163, .28);
+    --pill: #222326;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #141517;
+  --ink: #ECE9E3;
+  --ink2: #B4AFA6;
+  --ink3: #7E7A73;
+  --line: #2A2B2E;
+  --accent: #A9BBF0;
+  --mark: rgba(241, 223, 163, .28);
+  --pill: #222326;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 120px);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.75;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
