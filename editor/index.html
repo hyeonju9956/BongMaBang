@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F5F3EE">
+  <title>에피소드 편집기 - 봉현마을방범대</title>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/editor.css">
+  <script type="module" src="../js/editor.js"></script>
+</head>
+<body>
+  <main class="editor">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">LOCAL EDITOR</p>
+        <h1>에피소드 편집기</h1>
+        <p class="intro">이야기를 고치고 저장하면 사이트 데이터에 바로 반영됩니다.</p>
+      </div>
+      <a class="back-link" href="../">돌아가기</a>
+    </header>
+
+    <section class="filebar" aria-label="데이터 파일">
+      <div>
+        <strong id="file-status">episodes.json 불러오는 중...</strong>
+        <span id="save-status">수정 내용은 저장을 눌러야 파일에 반영됩니다.</span>
+      </div>
+      <div class="file-actions">
+        <button class="button primary" id="save-file" type="button" disabled>저장</button>
+      </div>
+    </section>
+
+    <p id="notice" class="notice" role="alert" hidden></p>
+
+    <section class="workspace" aria-label="에피소드 편집">
+      <aside class="list-panel">
+        <div class="list-heading">
+          <h2>이야기 <span id="story-count">0</span></h2>
+          <button class="button primary add-button" id="add-story" type="button" disabled>+ 추가</button>
+        </div>
+        <label class="search">
+          <span class="visually-hidden">이야기 검색</span>
+          <input id="search" type="search" placeholder="제목, 내용, 인물 검색" autocomplete="off" disabled>
+        </label>
+        <label class="visually-hidden" for="era-filter">시기 필터</label>
+        <select id="era-filter" disabled>
+          <option value="">모든 시기</option>
+        </select>
+        <div id="story-list" class="story-list" aria-label="에피소드 목록"></div>
+      </aside>
+
+      <form id="story-form" class="form-panel">
+        <div id="empty-state" class="empty-state">
+          <h2>이야기를 불러오는 중입니다</h2>
+          <p>잠시만 기다려 주세요.</p>
+        </div>
+        <div id="fields" hidden>
+          <div class="form-heading">
+            <div>
+              <p id="story-number" class="story-number"></p>
+              <h2 id="form-title">이야기 수정</h2>
+            </div>
+            <button class="button danger" id="delete-story" type="button">삭제</button>
+          </div>
+
+          <div class="field-row">
+            <label class="field">
+              <span>시기</span>
+              <input id="era" name="era" type="text" list="era-options" required>
+              <datalist id="era-options"></datalist>
+            </label>
+            <label class="field">
+              <span>제목</span>
+              <input id="title" name="title" type="text" required>
+            </label>
+          </div>
+
+          <label class="field">
+            <span>인물 <small>한 줄에 한 명씩</small></span>
+            <textarea id="who" name="who" rows="3" placeholder="이름을 한 줄에 한 명씩 입력"></textarea>
+          </label>
+
+          <label class="field">
+            <span>이야기</span>
+            <textarea id="text" name="text" rows="12" required></textarea>
+          </label>
+
+          <label class="legend-check">
+            <input id="bright" name="bright" type="checkbox">
+            <span>레전드 표시</span>
+          </label>
+        </div>
+      </form>
+    </section>
+    <footer>수정 후 <kbd>Ctrl</kbd> + <kbd>S</kbd>로 저장할 수 있습니다. 에피소드 순서가 번호와 별자리 배치에 사용됩니다.</footer>
+  </main>
+</body>
+</html>

@@ -34,11 +34,15 @@ flowchart TD
 | `js/stories.js` | 이야기와 시기 목록 표시 |
 | `js/search.js` | 검색 입력 및 초기화 |
 | `js/constellation.js` | 별자리 표시 및 이야기 이동 |
+| `editor/index.html` | 에피소드 로컬 편집기 (`/editor`) |
+| `js/editor.js`, `css/editor.css` | 에피소드 편집 기능과 화면 |
 | `README.md` | 편집·미리보기 안내 |
 
-화면 디자인은 `css/`에서 수정할 것. 기능은 해당 역할의 `js/` 파일에서 수정할 것. 이야기 추가·수정은 `data/episodes.json`에서 진행할 것. 방범대 이름·시기 설정은 `data/squad.json`에서 수정할 것. 별도 빌드 없이 GitHub Pages에서 직접 제공 가능.
+화면 디자인은 `css/`에서 수정할 것. 기능은 해당 역할의 `js/` 파일에서 수정할 것. 이야기 추가·수정은 로컬 편집기 `/editor`를 우선 사용하고, 필요할 때 `data/episodes.json`을 직접 수정할 것. 방범대 이름·시기 설정은 `data/squad.json`에서 수정할 것. 별도 빌드 없이 GitHub Pages에서 직접 제공 가능.
 
 ## 이야기 추가
+
+빠르게 추가·수정하려면 아래의 **로컬 에피소드 편집기**를 사용할 것. JSON을 직접 편집할 때는 다음 형식을 참고.
 
 `data/episodes.json` 배열의 마지막 이야기 뒤에 쉼표를 붙인 후 새 항목을 추가할 것.
 
@@ -68,4 +72,5 @@ JSON 키와 문자열에는 큰따옴표 사용. 배열·객체의 마지막 항
 ## 미리보기 및 게시
 
 - 로컬 확인 시 VS Code에서 프로젝트를 열고 Live Server 등 로컬 웹 서버로 `index.html` 실행. `file://` 방식으로 직접 여는 경우 JSON 로드 불가.
+- 에피소드 편집은 사이트 헤더의 `editor` 버튼을 누르거나 Live Server 주소에 `/editor`를 붙여 연다. 실제 정적 경로는 `editor/`이며 브라우저 주소에서는 끝 슬래시를 숨긴다. 편집기는 `data/episodes.json`을 자동으로 불러오므로 파일을 올릴 필요가 없다. 이야기 제목을 누르면 해당 에피소드가 선택된 편집기로 이동한다. 수정 후 **저장**을 누르면 원본에 쓸 권한을 요청한다. Chrome·Edge에서는 처음 저장할 때 프로젝트의 `data/episodes.json`을 선택하면 이후에는 저장 버튼만으로 파일에 반영된다. 직접 저장을 지원하지 않는 브라우저에서는 JSON을 내려받아 기존 파일을 교체할 것.
 - GitHub Pages 게시 시 저장소 **Settings → Pages**에서 게시 소스 설정. 프로젝트 사이트 주소 형식: `https://hyeonju9956.github.io/BongMaBang/`

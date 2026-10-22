@@ -25,6 +25,28 @@ h1 {
   font-weight: 600;
 }
 
+.editor-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  margin-top: 22px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink2);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: border-color .2s, color .2s, background .2s;
+}
+
+.editor-link:hover {
+  border-color: var(--accent);
+  background: var(--pill);
+  color: var(--accent);
+}
+
 #sky {
   display: block;
   width: 100%;
@@ -235,6 +257,17 @@ h1 {
   font-weight: 700;
   line-height: 1.45;
   letter-spacing: -.01em;
+}
+
+.story h3 a {
+  color: inherit;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color .15s;
+}
+
+.story h3 a:hover {
+  text-decoration-color: currentColor;
 }
 
 .tag {
