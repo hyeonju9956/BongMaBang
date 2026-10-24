@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F5F3EE">
+  <title>로그인 - 봉현마을방범대</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <main class="login-page">
+    <a class="login-brand" href="login.html">봉현마을방범대</a>
+    <section class="login-card" aria-labelledby="login-title">
+      <p class="eyebrow">WELCOME BACK</p>
+      <h1 id="login-title">로그인</h1>
+      <p class="intro">발급받은 계정으로 로그인해 주세요.</p>
+      <p id="login-error" class="login-error" role="alert" hidden></p>
+      <form id="login-form">
+        <label>
+          <span>아이디</span>
+          <input name="username" autocomplete="username" required autofocus>
+        </label>
+        <label>
+          <span>비밀번호</span>
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">로그인</button>
+      </form>
+    </section>
+  </main>
+  <script src="js/api-config.js"></script>
+  <script type="module" src="js/login.js"></script>
+</body>
+</html>

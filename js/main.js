@@ -25,7 +25,7 @@ async function start() {
   const result = element("result");
   const book = element("book");
   if (episodes.length === 0) {
-    book.innerHTML = '<p class="empty">아직 이야기가 없어요. data/episodes.json에 첫 이야기를 적어 주세요.</p>';
+    book.innerHTML = '<p class="empty">아직 등록된 이야기가 없어요.</p>';
   }
 
   let search;
@@ -90,5 +90,5 @@ async function start() {
 start().catch(error => {
   const errorBox = element("err");
   errorBox.hidden = false;
-  errorBox.textContent = `이야기를 불러오지 못했어요. data/squad.json과 data/episodes.json의 경로와 JSON 문법을 확인해 주세요. (${error.message})`;
+  errorBox.textContent = `이야기를 불러오지 못했어요. API 서버와 사이트 설정을 확인해 주세요. (${error.message})`;
 });

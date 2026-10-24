@@ -37,6 +37,11 @@ export function createStoryView({ episodes, eras, toc, book, onPersonSearch }) {
   });
 
   book.addEventListener("click", event => {
+    const editLink = event.target.closest("[data-edit-episode]");
+    if (editLink) {
+      sessionStorage.setItem("bongmabang-edit-episode", editLink.dataset.editEpisode);
+      return;
+    }
     const button = event.target.closest("[data-who]");
     if (button) {
       onPersonSearch(button.dataset.who);
@@ -46,7 +51,7 @@ export function createStoryView({ episodes, eras, toc, book, onPersonSearch }) {
 
   function paintEpisode(episode, query) {
     episode.element.querySelector(".body").innerHTML =
-      `<h3>${highlight(episode.title, query)}${episode.bright ? '<span class="tag">레전드</span>' : ""}</h3>` +
+      `<h3><a href="editor/" data-edit-episode="${episode.index}">${highlight(episode.title, query)}</a>${episode.bright ? '<span class="tag">레전드</span>' : ""}</h3>` +
       (episode.who.length
         ? `<div class="who">${episode.who.map(person =>
           `<button type="button" class="${person === "불확실" ? "unk" : ""}" data-who="${escapeHtml(person)}">${highlight(person, query)}</button>`
