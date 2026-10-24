@@ -1,0 +1,10 @@
+{
+  "name": "bongmabang",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "npm --prefix backend test",
+    "start": "npm --prefix backend start",
+    "import:episodes": "npm --prefix backend run import:episodes"
+  }
+}

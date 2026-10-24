@@ -1,3 +1,5 @@
+import { api } from "./api-client.js";
+
 async function readJson(path) {
   const response = await fetch(new URL(path, import.meta.url));
   if (!response.ok) {
@@ -14,9 +16,9 @@ function requireString(value, location) {
 }
 
 export async function loadSiteData() {
-  const [squad, episodes] = await Promise.all([
-    readJson("../data/squad.json"),
-    readJson("../data/episodes.json")
+  const [{ episodes }, squad] = await Promise.all([
+    api("/episodes"),
+    readJson("../data/squad.json")
   ]);
 
   if (!squad || typeof squad !== "object" || Array.isArray(squad)) {
@@ -30,12 +32,12 @@ export async function loadSiteData() {
     throw new Error("squad.eras 값은 문자열 배열이어야 합니다.");
   }
   if (!Array.isArray(episodes)) {
-    throw new Error("data/episodes.json은 이야기 객체의 배열이어야 합니다.");
+    throw new Error("DB 응답의 episodes 값은 이야기 객체의 배열이어야 합니다.");
   }
 
   const eras = [...squad.eras];
   const normalizedEpisodes = episodes.map((episode, index) => {
-    const location = `episodes.json의 ${index + 1}번째 이야기`;
+    const location = `DB의 ${index + 1}번째 이야기`;
     if (!episode || typeof episode !== "object" || Array.isArray(episode)) {
       throw new Error(`${location}는 객체여야 합니다.`);
     }
@@ -50,17 +52,18 @@ export async function loadSiteData() {
       throw new Error(`${location}.bright 값은 true 또는 false여야 합니다.`);
     }
     if (!eras.includes(era)) eras.push(era);
+    const who = episode.who.map(person => person.trim()).filter(Boolean);
 
     return {
       ...episode,
       era,
       title,
       text,
-      who: episode.who.map(person => person.trim()).filter(Boolean),
+      who,
       bright: episode.bright === true,
       index,
       number: index + 1,
-      searchText: [title, text, episode.who.join(" "), era].join(" ").toLowerCase()
+      searchText: [title, text, who.join(" "), era].join(" ").toLowerCase()
     };
   });
 

@@ -12,7 +12,8 @@ body {
 .filebar,
 .list-heading,
 .form-heading,
-.file-actions {
+.file-actions,
+.editor-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -64,6 +65,10 @@ h1 {
   transition: border-color .2s, color .2s, background .2s;
 }
 
+.editor-nav .button {
+  text-decoration: none;
+}
+
 .back-link::before {
   content: "←";
   color: var(--ink3);
@@ -96,9 +101,20 @@ h1 {
 }
 
 .filebar strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #c08a38;
 }
 
 .filebar span {
@@ -107,6 +123,9 @@ h1 {
 }
 
 .file-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
 }
 
@@ -273,6 +292,123 @@ h1 {
   padding: 24px clamp(18px, 4vw, 44px);
 }
 
+.form-panel fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.form-panel fieldset:disabled {
+  opacity: .55;
+}
+
+.connection-note {
+  margin-bottom: 18px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--pill);
+  color: var(--ink2);
+  font-size: 13px;
+}
+
+.login-panel {
+  max-width: 460px;
+  margin: 28px auto;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg);
+}
+
+.login-panel h2,
+.admin-panel h2 {
+  margin-bottom: 6px;
+  font-family: var(--serif);
+  font-size: 23px;
+}
+
+.login-panel > p {
+  margin-bottom: 18px;
+  color: var(--ink3);
+  font-size: 14px;
+}
+
+.login-panel form {
+  display: grid;
+  gap: 12px;
+}
+
+.login-panel .field {
+  margin-bottom: 0;
+}
+
+.admin-panel {
+  margin: 24px 0;
+}
+
+.request-card,
+.account-card {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.request-card h3,
+.account-card strong {
+  margin: 0;
+  font-size: 16px;
+}
+
+.request-card p,
+.account-card p {
+  margin: 0;
+  color: var(--ink2);
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.request-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.account-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.account-card {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.request-badge {
+  display: inline-grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  margin-left: 4px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #b13b32;
+  color: white;
+  font-size: 12px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .empty-state {
   display: grid;
   align-content: center;
@@ -295,6 +431,10 @@ h1 {
 
 .form-heading {
   margin-bottom: 22px;
+}
+
+.form-heading h2 {
+  font-family: var(--serif);
 }
 
 .story-number {
@@ -396,7 +536,12 @@ kbd {
   }
 
   .file-actions {
-    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: stretch;
+  }
+
+  .file-actions .button {
+    flex: 1;
   }
 
   .workspace {
@@ -423,6 +568,15 @@ kbd {
     align-items: flex-start;
   }
 
+  .form-heading {
+    align-items: flex-start;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
   .intro {
     max-width: 24em;
   }
@@ -430,6 +584,10 @@ kbd {
   .field-row {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
+  }
+
+  .account-form {
+    grid-template-columns: 1fr;
   }
 
   .file-actions .button {
